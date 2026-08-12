@@ -531,6 +531,12 @@ body {
     box-shadow: 0 0 0 2px var(--primary-glow);
 }
 
+/* Podświetlenie pustego pola przy próbie wysłania */
+.input-field input:invalid:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
 .form-options {
     text-align: right;
 }
