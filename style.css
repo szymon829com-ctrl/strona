@@ -361,7 +361,41 @@ body {
     border-color: transparent;
 }
 
-/* DOKŁADNIE 3 KOLUMNY W RZĘDZIE (3 OBOK SIEBIE, KOLEJNE W DÓŁ) */
+/* DLACZEGO MY - SEKCJA Kafelków */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.feature-box {
+    padding: 30px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--border);
+    transition: all .3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    border-color: rgba(139, 92, 246, 0.35);
+    background: rgba(139, 92, 246, 0.05);
+}
+
+.feature-box h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: white;
+}
+
+.feature-box p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* PORTFOLIO - 3 KOLUMNY */
 .portfolio {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -370,7 +404,7 @@ body {
 
 .portfolio-item {
     position: relative;
-    height: 200px; /* Zmniejszona wysokość elementów */
+    height: 200px;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -666,7 +700,7 @@ footer {
     .products {
         grid-template-columns: repeat(2, 1fr);
     }
-    .portfolio {
+    .portfolio, .features-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     .hero {
@@ -689,7 +723,7 @@ footer {
     .hero h1 {
         font-size: 38px;
     }
-    .products, .portfolio {
+    .products, .portfolio, .features-grid {
         grid-template-columns: 1fr;
     }
     .cta {
