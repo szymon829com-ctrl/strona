@@ -340,7 +340,7 @@ body {
 }
 
 /* ==========================================================================
-   MODAL (OKIENKO AUTORYZACJI)
+   MODAL (OKIENKO AUTORYZACI)
    ========================================================================== */
 .modal-overlay {
     position: fixed;
@@ -503,7 +503,7 @@ body {
     position: relative;
 }
 
-/* FORMULARZE */
+/* FORMULARZE I POLA TEKSTOWE */
 .auth-form {
     display: none;
     flex-direction: column;
@@ -512,6 +512,11 @@ body {
 
 .auth-form.active {
     display: flex;
+}
+
+.input-field {
+    position: relative;
+    margin-bottom: 18px;
 }
 
 .input-field input {
@@ -531,10 +536,48 @@ body {
     box-shadow: 0 0 0 2px var(--primary-glow);
 }
 
-/* Podświetlenie pustego pola przy próbie wysłania */
-.input-field input:invalid:focus {
-    border-color: #ef4444;
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+/* WYSUWANY KOMUNIKAT BŁĘDU (Z PRAWEJ STRONY NA DÓŁ) */
+.field-error {
+    position: absolute;
+    right: 0;
+    bottom: -28px;
+    background: #ef4444;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) translateX(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Trójkąt wskazujący pole */
+.field-error::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 15px;
+    border-width: 0 4px 4px 4px;
+    border-style: solid;
+    border-color: transparent transparent #ef4444 transparent;
+}
+
+/* Stan błędu – aktywujący wysunięcie dymku */
+.input-field.error input {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+.input-field.error .field-error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) translateX(0);
 }
 
 .form-options {
