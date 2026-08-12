@@ -1,8 +1,8 @@
 const services = [
-    { id: 1, name: "Avatar", price: 15, desc: "Avatar na Discord, YouTube lub social media.", icon: "▣", featured: false },
-    { id: 2, name: "Banner", price: 30, desc: "Profesjonalny banner promocyjny lub na profil.", icon: "◆", featured: true },
-    { id: 3, name: "Logo", price: 40, desc: "Unikalny znak graficzny dopasowany do marki.", icon: "✦", featured: false },
-    { id: 4, name: "Grafika Minecraft", price: 25, desc: "Miniatury, grafiki serwerowe i reklamowe.", icon: "⬢", featured: false }
+    { id: 1, name: "Avatar", price: 15, desc: "Avatar na Discord, YouTube lub social media w wysokiej jakości.", icon: "▣", featured: false },
+    { id: 2, name: "Banner", price: 30, desc: "Profesjonalny banner promocyjny lub na profil / stronę.", icon: "◆", featured: true },
+    { id: 3, name: "Logo", price: 40, desc: "Unikalny znak graficzny idealnie dopasowany do Twojej marki.", icon: "✦", featured: false },
+    { id: 4, name: "Grafika Minecraft", price: 25, desc: "Miniatury YouTube, grafiki serwerowe i promocyjne.", icon: "⬢", featured: false }
 ];
 
 let cart = [];
@@ -87,10 +87,29 @@ function checkout() {
         alert('Twój koszyk jest pusty!');
         return;
     }
-    alert('Dziękujemy za złożenie zamówienia! Wkrótce skontaktujemy się w celu ustalenia szczegółów.');
-    cart = [];
-    updateCartUI();
-    toggleCart();
+    
+    let summary = cart.map(item => `- ${item.name} (${item.price} PLN)`).join('\n');
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+    // Przykładowe przekierowanie / podsumowanie (możesz podmienić link na swój Discord/Telegram)
+    const confirmed = confirm(`Twoje zamówienie:\n\n${summary}\n\nRazem: ${total} PLN\n\nKliknij OK, aby przejść do realizacji (kontakt / Discord).`);
+    
+    if (confirmed) {
+        // Przykład przekierowania na Discord lub podany komunikator
+        window.location.href = "https://discord.com/"; 
+    }
+}
+
+// Obsługa podglądu zdjęć w Portfolio (Lightbox)
+function openLightbox(imgSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
 }
 
 document.addEventListener('DOMContentLoaded', initStore);
