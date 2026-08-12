@@ -106,16 +106,14 @@
             <div class="or-separator" id="orSeparator">LUB FORMULARZEM</div>
 
             <!-- Formularz Logowania -->
-            <form class="auth-form active" id="loginForm" onsubmit="event.preventDefault(); window.location.href='/strona/dashboard.html';">
+            <form class="auth-form active" id="loginForm">
                 <div class="input-field">
-                    <input type="text" placeholder="E-mail lub Nick z Gry" required 
-                           oninvalid="this.setCustomValidity('Proszę wypełnić to pole')" 
-                           oninput="this.setCustomValidity('')">
+                    <input type="text" placeholder="E-mail lub Nick z Gry" id="loginIdentifier">
+                    <span class="field-error">Proszę wypełnić to pole</span>
                 </div>
                 <div class="input-field">
-                    <input type="password" placeholder="Hasło" required 
-                           oninvalid="this.setCustomValidity('Proszę wypełnić to pole')" 
-                           oninput="this.setCustomValidity('')">
+                    <input type="password" placeholder="Hasło" id="loginPassword">
+                    <span class="field-error">Proszę wypełnić to pole</span>
                 </div>
                 <div class="form-options">
                     <a href="#" class="link-btn" id="showForgot">Zapomniałeś hasła?</a>
@@ -124,31 +122,27 @@
             </form>
 
             <!-- Formularz Rejestracji -->
-            <form class="auth-form" id="registerForm" onsubmit="event.preventDefault(); window.location.href='/strona/dashboard.html';">
+            <form class="auth-form" id="registerForm">
                 <div class="input-field">
-                    <input type="text" placeholder="Nick w Minecraft" required 
-                           oninvalid="this.setCustomValidity('Proszę wypełnić to pole')" 
-                           oninput="this.setCustomValidity('')">
+                    <input type="text" placeholder="Nick w Minecraft" id="registerNick">
+                    <span class="field-error">Proszę wypełnić to pole</span>
                 </div>
                 <div class="input-field">
-                    <input type="email" placeholder="Adres e-mail" required 
-                           oninvalid="this.setCustomValidity('Proszę wypełnić to pole')" 
-                           oninput="this.setCustomValidity('')">
+                    <input type="email" placeholder="Adres e-mail" id="registerEmail">
+                    <span class="field-error">Proszę wypełnić to pole</span>
                 </div>
                 <div class="input-field">
-                    <input type="password" placeholder="Hasło" required 
-                           oninvalid="this.setCustomValidity('Proszę wypełnić to pole')" 
-                           oninput="this.setCustomValidity('')">
+                    <input type="password" placeholder="Hasło" id="registerPassword">
+                    <span class="field-error">Proszę wypełnić to pole</span>
                 </div>
                 <button type="submit" class="btn-submit">Stwórz darmowe konto</button>
             </form>
 
             <!-- Formularz Resetu Hasła -->
-            <form class="auth-form" id="forgotForm" onsubmit="event.preventDefault(); alert('Link do resetu hasła został wysłany!'); switchTab('login');">
+            <form class="auth-form" id="forgotForm">
                 <div class="input-field">
-                    <input type="email" placeholder="Podaj Twój e-mail" required 
-                           oninvalid="this.setCustomValidity('Proszę wypełnić to pole')" 
-                           oninput="this.setCustomValidity('')">
+                    <input type="email" placeholder="Podaj Twój e-mail" id="forgotEmail">
+                    <span class="field-error">Proszę wypełnić to pole</span>
                 </div>
                 <button type="submit" class="btn-submit">Wyślij link resetujący</button>
             </form>
@@ -160,7 +154,46 @@
         </div>
     </div>
 
-    <!-- Podpięcie skryptu auth.js -->
+    <!-- Podpięcie skryptów -->
     <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = document.querySelectorAll('.auth-form');
+
+            forms.forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    let formIsValid = true;
+                    const inputs = form.querySelectorAll('input');
+
+                    inputs.forEach(input => {
+                        const fieldContainer = input.closest('.input-field');
+
+                        if (!input.value.trim()) {
+                            fieldContainer.classList.add('error');
+                            formIsValid = false;
+                        } else {
+                            fieldContainer.classList.remove('error');
+                        }
+
+                        input.oninput = () => {
+                            if (input.value.trim()) {
+                                fieldContainer.classList.remove('error');
+                            }
+                        };
+                    });
+
+                    if (formIsValid) {
+                        if (form.id === 'forgotForm') {
+                            alert('Link do resetu hasła został wysłany!');
+                        } else {
+                            window.location.href = '/strona/dashboard.html';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
