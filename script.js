@@ -1,9 +1,8 @@
 const services = [
-    { id: 1, name: "Render Postaci", price: 25, desc: "Wysokiej jakości render postaci z Twoim skinem w wysokiej rozdzielczości.", icon: "▣", featured: false },
-    { id: 2, name: "Banner Social Media", price: 40, desc: "Profesjonalne tło na YouTube, Twittera lub Twitcha.", icon: "◆", featured: true },
-    { id: 3, name: "Logo Serwerowe/Marki", price: 60, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
-    { id: 4, name: "Miniaturka (Thumbnail)", price: 35, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
-    { id: 5, name: "Grafika GUI / UI", price: 50, desc: "Interfejsy i elementy graficzne pod serwery MC.", icon: "⬡", featured: false }
+    { id: 1, name: "Render Postaci", price: 15, desc: "Wysokiej jakości render postaci z Twoim skinem w wysokiej rozdzielczości.", icon: "▣", featured: false },
+    { id: 2, name: "Banner do minecraft/emved", price: 25, desc: "Profesjonalne tło na YouTube, Twittera lub Twitcha.", icon: "◆", featured: true },
+    { id: 3, name: "Logo Serwerowe/Marki", price: 40, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
+    { id: 4, name: "Miniaturka pod filmik", price: 25, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
 ];
 
 let cart = [];
