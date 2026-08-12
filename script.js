@@ -1,8 +1,9 @@
 const services = [
-    { id: 1, name: "Avatar", price: 20, desc: "Avatar na Discord, YouTube lub social media w wysokiej jakości.", icon: "▣", featured: false },
-    { id: 2, name: "Banner", price: 35, desc: "Profesjonalny banner promocyjny lub na profil / stronę.", icon: "◆", featured: true },
-    { id: 3, name: "Logo", price: 45, desc: "Unikalny znak graficzny idealnie dopasowany do Twojej marki.", icon: "✦", featured: false },
-    { id: 4, name: "Grafika Minecraft", price: 30, desc: "Miniatury YouTube, grafiki serwerowe i promocyjne.", icon: "⬢", featured: false }
+    { id: 1, name: "Render Postaci", price: 25, desc: "Wysokiej jakości render postaci z Twoim skinem w wysokiej rozdzielczości.", icon: "▣", featured: false },
+    { id: 2, name: "Banner Social Media", price: 40, desc: "Profesjonalne tło na YouTube, Twittera lub Twitcha.", icon: "◆", featured: true },
+    { id: 3, name: "Logo Serwerowe/Marki", price: 60, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
+    { id: 4, name: "Miniaturka (Thumbnail)", price: 35, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
+    { id: 5, name: "Grafika GUI / UI", price: 50, desc: "Interfejsy i elementy graficzne pod serwery MC.", icon: "⬡", featured: false }
 ];
 
 let cart = [];
@@ -27,8 +28,11 @@ function initStore() {
     if (pricingList) {
         pricingList.innerHTML = services.map(s => `
             <div class="price-row">
-                <span>${s.name}</span>
-                <strong>od ${s.price} zł</strong>
+                <div class="price-info">
+                    <strong>${s.name}</strong>
+                    <p>${s.desc}</p>
+                </div>
+                <span class="price-val">od ${s.price} zł</span>
             </div>
         `).join('');
     }
@@ -61,7 +65,7 @@ function updateCartUI() {
 
     if (cart.length === 0) {
         cartItems.innerHTML = `<p class="empty">Koszyk jest pusty.</p>`;
-        cartTotal.textContent = `0 zł`;
+        cartTotal.textContent = `od 0 zł`;
         return;
     }
 
