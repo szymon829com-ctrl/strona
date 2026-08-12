@@ -38,6 +38,30 @@ function initStore() {
     }
 }
 
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    // Animacja pojawienia się
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+
+    // Automatyczne schowanie i usunięcie po 3 sekundach
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 350);
+    }, 3000);
+}
+
 function toggleCart() {
     document.getElementById('cartOverlay').classList.toggle('active');
 }
@@ -48,12 +72,14 @@ function addToCart(id) {
 
     cart.push(service);
     updateCartUI();
-    toggleCart();
+    showToast(`Dodano do koszyka: ${service.name}`);
 }
 
 function removeFromCart(index) {
+    const removedName = cart[index].name;
     cart.splice(index, 1);
     updateCartUI();
+    showToast(`Usunięto z koszyka: ${removedName}`, 'error');
 }
 
 function updateCartUI() {
@@ -88,7 +114,7 @@ function updateCartUI() {
 
 function checkout() {
     if (cart.length === 0) {
-        alert('Twój koszyk jest pusty!');
+        showToast('Twój koszyk jest pusty!', 'error');
         return;
     }
 
@@ -106,18 +132,18 @@ function checkout() {
         `Uwagi: ${additionalNotes}\n\n` +
         `Wybrane usługi:\n${summary}\n\n` +
         `Szacowany koszt: od ${total} PLN\n\n` +
-        `Kliknij OK, aby wysłac zamówienie.`
+        `Kliknij OK, aby wyslac zamówienie.`
     );
 
     if (confirmed) {
         cart = [];
         updateCartUI();
         toggleCart();
-        
-        // Otwiera okno chatu bezpośrednio z Tobą na Discordzie (używając Twojego nicku xszymoxpro)
+        showToast('Zamówienie zostało przygotowane!');
         window.open("https://discord.com/users/xszymoxpro", "_blank"); 
     }
 }
+
 function openLightbox(imgSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
