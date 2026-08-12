@@ -1,0 +1,434 @@
+:root {
+    --bg-main: #030303;
+    --bg-card: #0a0a0a;
+    --bg-input: #111111;
+    --primary-green: #10b981;
+    --primary-green-glow: rgba(16, 185, 129, 0.25);
+    --text-white: #ffffff;
+    --text-dim: #71717a;
+    --border-dark: #18181b;
+    --border-glow: #27272a;
+    --discord-bg: #5865F2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Ambient Background Accent */
+.ambient-glow {
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 350px;
+    background: radial-gradient(circle, var(--primary-green-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 8%;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-white);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.logo-icon {
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary-green);
+    border-radius: 3px;
+    box-shadow: 0 0 10px var(--primary-green);
+}
+
+.logo span {
+    color: var(--primary-green);
+}
+
+.nav-center {
+    display: flex;
+    gap: 24px;
+    background: rgba(18, 18, 18, 0.6);
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--border-dark);
+    backdrop-filter: blur(10px);
+}
+
+.nav-link {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-white);
+}
+
+.btn-discord-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #121212;
+    border: 1px solid var(--border-dark);
+    color: var(--text-white);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-discord-nav:hover {
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+}
+
+/* Hero Section - 2 Columns */
+.hero-container {
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0f1712;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--primary-green);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.ping-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--primary-green);
+}
+
+.hero-left h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+}
+
+.hero-left h1 span {
+    background: linear-gradient(to right, #10b981, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-left p {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.cta-group {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.btn-glow {
+    background-color: var(--primary-green);
+    color: #000;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 0 25px var(--primary-green-glow);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    background-color: #34d399;
+}
+
+.btn-glass {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-dark);
+    color: var(--text-white);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-glass:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.features-mini {
+    display: flex;
+    gap: 24px;
+    border-top: 1px solid var(--border-dark);
+    padding-top: 24px;
+}
+
+.feat-item {
+    font-size: 13px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.feat-item span {
+    color: var(--text-white);
+}
+
+/* Card VIP Preview */
+.featured-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.card-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--primary-green);
+    color: #000;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.featured-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary-green);
+    margin-bottom: 20px;
+}
+
+.price span {
+    font-size: 16px;
+    color: var(--text-dim);
+}
+
+.card-features {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.card-features li {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.card-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-green);
+}
+
+.btn-buy {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--primary-green);
+    color: var(--primary-green);
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-buy:hover {
+    background: var(--primary-green);
+    color: #000;
+}
+
+/* Modal Window */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glow);
+    padding: 32px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    text-align: center;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-logo {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-green);
+    color: #000;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 0 auto 16px;
+}
+
+.modal-top h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.modal-top p {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+}
+
+.discord-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--discord-bg);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.or-separator {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin: 20px 0;
+    letter-spacing: 1px;
+}
+
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-field input {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-dark);
+    padding: 12px;
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+}
+
+.input-field input:focus {
+    border-color: var(--primary-green);
+}
+
+.btn-submit {
+    background: var(--primary-green);
+    color: #000;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+    }
+    .nav-center {
+        display: none;
+    }
+}
