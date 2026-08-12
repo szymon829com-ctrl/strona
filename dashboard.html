@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Zarządzania - CraftShop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
 
+    <div class="dashboard-container">
+        <!-- Sidebar / Pasek boczny -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                Craft<span>Shop</span>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active">📊 Przegląd</a></li>
+                <li><a href="#">📦 Produkty</a></li>
+                <li><a href="#">💳 Płatności</a></li>
+                <li><a href="#">⚙️ Ustawienia serwera</a></li>
+                <li><a href="#">🔌 Dokumentacja pluginu</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">Wyloguj się</a>
+            </div>
+        </aside>
+
+        <!-- Główna zawartość panelu -->
+        <main class="main-content">
+            <!-- Górny pasek -->
+            <header class="dashboard-header">
+                <div>
+                    <h1>Witaj w panelu, <span id="userName">Właścicielu</span>!</h1>
+                    <p>Oto podsumowanie Twojego sklepu Minecraft w czasie rzeczywistym.</p>
+                </div>
+                <div class="user-profile-badge">
+                    <div class="avatar">CS</div>
+                    <span id="userEmail">sklep@serwer.pl</span>
+                </div>
+            </header>
+
+            <!-- Kafelki ze statystykami -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Sprzedaż (Ten miesiąc)</h3>
+                    <div class="value">1,450.00 <span>PLN</span></div>
+                    <span class="trend positive">+15% od ostatniego miesiąca</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Aktywne zamówienia</h3>
+                    <div class="value">38</div>
+                    <span class="trend positive">Wszystkie wydane automatycznie</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Status Serwera</h3>
+                    <div class="value" style="color: #10b981; font-size: 1.5rem; margin-top: 10px;">🟢 Online (124/250)</div>
+                    <span class="trend">IP: play.mojserwer.pl</span>
+                </div>
+            </div>
+
+            <!-- Sekcja zarządzania / ostatnie transakcje -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Ostatnie zakupy w sklepie</h2>
+                    <button class="btn-primary">+ Dodaj produkt</button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gracz</th>
+                                <th>Produkt</th>
+                                <th>Kwota</th>
+                                <th>Status</th>
+                                <th>Czas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Notch</td>
+                                <td>Ranga VIP (30 dni)</td>
+                                <td>19.99 PLN</td>
+                                <td><span class="badge success">Wydano</span></td>
+                                <td>12 min temu</td>
+                            </tr>
+                            <tr>
+                                <td>Jeb</td>
+                                <td>Klucz do skrzyni (x5)</td>
+                                <td>9.99 PLN</td>
+                                <td><span class="badge success">Wydano</span></td>
+                                <td>45 min temu</td>
+                            </tr>
+                            <tr>
+                                <td>Steve</td>
+                                <td>Odblokowanie /fly</td>
+                                <td>29.99 PLN</td>
+                                <td><span class="badge pending">Oczekiwanie</span></td>
+                                <td>2 godz. temu</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
