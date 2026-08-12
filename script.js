@@ -1,8 +1,9 @@
 const services = [
-    { id: 1, name: "Render Postaci", price: 15, desc: "Wysokiej jakości render postaci z Twoim skinem w wysokiej rozdzielczości.", icon: "▣", featured: false },
-    { id: 2, name: "Banner do minecraft/emved", price: 25, desc: "Profesjonalne tło na YouTube, Twittera lub Twitcha.", icon: "◆", featured: true },
-    { id: 3, name: "Logo Serwerowe/Marki", price: 40, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
-    { id: 4, name: "Miniaturka pod filmik", price: 25, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
+    { id: 1, name: "Render Postaci", price: 25, desc: "Wysokiej jakości render postaci z Twoim skinem w wysokiej rozdzielczości.", icon: "▣", featured: false },
+    { id: 2, name: "Banner Social Media", price: 40, desc: "Profesjonalne tło na YouTube, Twittera lub Twitcha.", icon: "◆", featured: true },
+    { id: 3, name: "Logo Serwerowe/Marki", price: 60, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
+    { id: 4, name: "Miniaturka (Thumbnail)", price: 35, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
+    { id: 5, name: "Grafika GUI / UI", price: 50, desc: "Interfejsy i elementy graficzne pod serwery MC.", icon: "⬡", featured: false }
 ];
 
 let cart = [];
@@ -47,12 +48,10 @@ function showToast(message, type = 'success') {
 
     container.appendChild(toast);
 
-    // Animacja pojawienia się
     setTimeout(() => {
         toast.classList.add('show');
     }, 10);
 
-    // Automatyczne schowanie i usunięcie po 3 sekundach
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => {
@@ -111,47 +110,67 @@ function updateCartUI() {
     cartTotal.textContent = `od ${total} zł`;
 }
 
+// Obsługa nowego animowanego modalu zamówienia
 function checkout() {
     if (cart.length === 0) {
         showToast('Twój koszyk jest pusty!', 'error');
         return;
     }
-
-    const discordUser = prompt('Podaj swój nick na Discordzie (np. nazwa#0000 lub nazwa):');
-    if (!discordUser) return;
-
-    const additionalNotes = prompt('Dodatkowe uwagi do zamówienia (opcjonalnie, np. opis projektu):') || 'Brak';
-
-    let summary = cart.map(item => `- ${item.name} (od ${item.price} PLN)`).join('\n');
-    let total = cart.reduce((sum, item) => sum + item.price, 0);
-
-    const confirmed = confirm(
-        `PODSUMOWANIE ZAMÓWIENIA:\n\n` +
-        `Discord: ${discordUser}\n` +
-        `Uwagi: ${additionalNotes}\n\n` +
-        `Wybrane usługi:\n${summary}\n\n` +
-        `Szacowany koszt: od ${total} PLN\n\n` +
-        `Kliknij OK, aby wyslac zamówienie.`
-    );
-
-    if (confirmed) {
-        cart = [];
-        updateCartUI();
-        toggleCart();
-        showToast('Zamówienie zostało przygotowane!');
-        window.open("https://discord.com/users/xszymoxpro", "_blank"); 
+    // Otwiera nasz stylizowany modal na środku ekranu z animacją
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        modal.classList.add('active');
     }
+}
+
+function closeCheckoutModal() {
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function submitOrder() {
+    const discordInput = document.getElementById('modalDiscord');
+    const notesInput = document.getElementById('modalNotes');
+    
+    const discordUser = discordInput ? discordInput.value.trim() : '';
+    const additionalNotes = notesInput ? notesInput.value.trim() : 'Brak';
+
+    if (!discordUser) {
+        showToast('Podaj swój nick na Discordzie!', 'error');
+        return;
+    }
+
+    // Zamykamy modal i koszyk, czyszcząc zamówienie
+    closeCheckoutModal();
+    cart = [];
+    updateCartUI();
+    toggleCart();
+
+    showToast('Zamówienie zostało przygotowane pomyślnie!');
+
+    if (discordInput) discordInput.value = '';
+    if (notesInput) notesInput.value = '';
+
+    // Przekierowanie do kontaktu na Discordzie (xszymoxpro)
+    window.open("https://discord.com/users/xszymoxpro", "_blank");
 }
 
 function openLightbox(imgSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
-    lightboxImg.src = imgSrc;
-    lightbox.classList.add('active');
+    if (lightbox && lightboxImg) {
+        lightboxImg.src = imgSrc;
+        lightbox.classList.add('active');
+    }
 }
 
 function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', initStore);
