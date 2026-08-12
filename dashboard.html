@@ -20,11 +20,11 @@
             </div>
 
             <ul class="sidebar-menu">
-                <li><a href="#" class="active">📊 Przegląd</a></li>
-                <li><a href="#">📦 Produkty</a></li>
-                <li><a href="#">💳 Płatności</a></li>
-                <li><a href="#">⚙️ Ustawienia serwera</a></li>
-                <li><a href="#">🔌 Dokumentacja pluginu</a></li>
+                <li><a href="#" class="active">Przegląd</a></li>
+                <li><a href="#">Produkty</a></li>
+                <li><a href="#">Płatności</a></li>
+                <li><a href="#">Ustawienia serwera</a></li>
+                <li><a href="#">Dokumentacja pluginu</a></li>
             </ul>
 
             <div class="sidebar-footer">
@@ -37,7 +37,7 @@
             <!-- Górny pasek -->
             <header class="dashboard-header">
                 <div>
-                    <h1>Witaj w panelu, <span id="userName">Właścicielu</span>!</h1>
+                    <h1>Witaj w panelu, <span id="userName">Właścicielu</span></h1>
                     <p>Oto podsumowanie Twojego sklepu Minecraft w czasie rzeczywistym.</p>
                 </div>
                 <div class="user-profile-badge">
@@ -50,17 +50,17 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Sprzedaż (Ten miesiąc)</h3>
-                    <div class="value">1,450.00 <span>PLN</span></div>
+                    <div class="value" id="totalSales">1,450.00 <span>PLN</span></div>
                     <span class="trend positive">+15% od ostatniego miesiąca</span>
                 </div>
                 <div class="stat-card">
                     <h3>Aktywne zamówienia</h3>
-                    <div class="value">38</div>
+                    <div class="value" id="totalOrders">38</div>
                     <span class="trend positive">Wszystkie wydane automatycznie</span>
                 </div>
                 <div class="stat-card">
                     <h3>Status Serwera</h3>
-                    <div class="value" style="color: #10b981; font-size: 1.5rem; margin-top: 10px;">🟢 Online (124/250)</div>
+                    <div class="value" style="color: #10b981; font-size: 1.5rem; margin-top: 10px;">Online</div>
                     <span class="trend">IP: play.mojserwer.pl</span>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <section class="content-section">
                 <div class="section-header">
                     <h2>Ostatnie zakupy w sklepie</h2>
-                    <button class="btn-primary">+ Dodaj produkt</button>
+                    <button class="btn-primary" id="addProductBtn">+ Dodaj produkt</button>
                 </div>
 
                 <div class="table-wrapper">
@@ -83,7 +83,7 @@
                                 <th>Czas</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="transactionsTable">
                             <tr>
                                 <td>Notch</td>
                                 <td>Ranga VIP (30 dni)</td>
@@ -112,5 +112,12 @@
         </main>
     </div>
 
+    <script>
+        function loadStoreData() {
+            console.log("Pobieranie najnowszych transakcji ze sklepu...");
+        }
+
+        setInterval(loadStoreData, 30000);
+    </script>
 </body>
 </html>
