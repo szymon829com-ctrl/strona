@@ -110,13 +110,11 @@ function updateCartUI() {
     cartTotal.textContent = `od ${total} zł`;
 }
 
-// Obsługa nowego animowanego modalu zamówienia
 function checkout() {
     if (cart.length === 0) {
         showToast('Twój koszyk jest pusty!', 'error');
         return;
     }
-    // Otwiera nasz stylizowany modal na środku ekranu z animacją
     const modal = document.getElementById('checkoutModal');
     if (modal) {
         modal.classList.add('active');
@@ -135,14 +133,12 @@ function submitOrder() {
     const notesInput = document.getElementById('modalNotes');
     
     const discordUser = discordInput ? discordInput.value.trim() : '';
-    const additionalNotes = notesInput ? notesInput.value.trim() : 'Brak';
 
     if (!discordUser) {
         showToast('Podaj swój nick na Discordzie!', 'error');
         return;
     }
 
-    // Zamykamy modal i koszyk, czyszcząc zamówienie
     closeCheckoutModal();
     cart = [];
     updateCartUI();
@@ -153,7 +149,6 @@ function submitOrder() {
     if (discordInput) discordInput.value = '';
     if (notesInput) notesInput.value = '';
 
-    // Przekierowanie do kontaktu na Discordzie (xszymoxpro)
     window.open("https://discord.com/users/xszymoxpro", "_blank");
 }
 
