@@ -138,6 +138,21 @@
                 <button type="submit" class="btn-submit">Stwórz darmowe konto</button>
             </form>
 
+            <!-- Formularz Weryfikacji E-mail (Kod) -->
+            <form class="auth-form" id="verifyForm">
+                <div style="text-align: center; margin-bottom: 16px; color: var(--text-muted); font-size: 0.9rem;">
+                    Wysłaliśmy 6-cyfrowy kod weryfikacyjny na podany adres e-mail. Wpisz go poniżej:
+                </div>
+                <div class="input-field">
+                    <input type="text" placeholder="123456" id="verificationCode" maxlength="6" style="text-align: center; letter-spacing: 4px; font-weight: 700; font-size: 1.2rem;">
+                    <span class="field-error">Wpisz poprawny kod</span>
+                </div>
+                <button type="submit" class="btn-submit">Potwierdź kod</button>
+                <div style="text-align: center; margin-top: 12px;">
+                    <a href="#" class="link-btn" id="resendCodeBtn">Nie otrzymałeś kodu? Wyślij ponownie</a>
+                </div>
+            </form>
+
             <!-- Formularz Resetu Hasła -->
             <form class="auth-form" id="forgotForm">
                 <div class="input-field">
@@ -159,6 +174,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const forms = document.querySelectorAll('.auth-form');
+            const modalSubtitle = document.getElementById('modalSubtitle');
 
             forms.forEach(form => {
                 form.addEventListener('submit', (e) => {
@@ -185,7 +201,29 @@
                     });
 
                     if (formIsValid) {
-                        if (form.id === 'forgotForm') {
+                        if (form.id === 'registerForm') {
+                            // Przejście do ekranu wpisywania kodu weryfikacyjnego
+                            form.classList.remove('active');
+                            document.getElementById('verifyForm').classList.add('active');
+                            modalSubtitle.textContent = 'Weryfikacja adresu e-mail';
+                            
+                            // Ukrycie elementów nawigacyjnych formularza autoryzacji
+                            document.getElementById('authTabs').style.display = 'none';
+                            document.getElementById('socialGroup').style.display = 'none';
+                            document.getElementById('orSeparator').style.display = 'none';
+                            document.getElementById('modalTitle').innerHTML = 'Potwierdź <span>e-mail</span>';
+                            document.querySelector('.modal-footer').style.display = 'none';
+                        } 
+                        else if (form.id === 'verifyForm') {
+                            const codeInput = document.getElementById('verificationCode');
+                            if (codeInput.value.trim().length < 6) {
+                                codeInput.closest('.input-field').classList.add('error');
+                                return;
+                            }
+                            alert('Konto zostało pomyślnie zweryfikowane!');
+                            window.location.href = '/strona/dashboard.html';
+                        }
+                        else if (form.id === 'forgotForm') {
                             alert('Link do resetu hasła został wysłany!');
                         } else {
                             window.location.href = '/strona/dashboard.html';
@@ -193,6 +231,15 @@
                     }
                 });
             });
+
+            // Obsługa ponownego wysyłania kodu
+            const resendBtn = document.getElementById('resendCodeBtn');
+            if (resendBtn) {
+                resendBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Nowy kod weryfikacyjny został wysłany na adres e-mail.');
+                });
+            }
         });
     </script>
 </body>
