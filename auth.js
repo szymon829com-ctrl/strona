@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     const forgotForm = document.getElementById('forgotForm');
-    const verifyForm = document.getElementById('verifyForm'); // Formularz weryfikacji kodu
+    const verifyForm = document.getElementById('verifyForm');
     
     // Elementy nagłówka i stopki
     const modalTitle = document.getElementById('modalTitle');
@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             footerText.textContent = 'Pamiętasz hasło?';
             switchAuthBtn.textContent = 'Wróć do logowania';
 
-            // Ukrywamy Discord oraz taby w trybie resetu hasła
             if (authTabs) authTabs.style.display = 'none';
             if (socialGroup) socialGroup.style.display = 'none';
             if (orSeparator) orSeparator.style.display = 'none';
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Otwieranie i zamykanie
+    // Otwieranie i zamykanie modalu
     const openModal = (tab = 'login') => {
         switchTab(tab);
         modal.classList.add('active');
@@ -102,17 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('active');
     };
 
-    // Obsługa kliknięć otwierających modal
     if (openLoginBtn) openLoginBtn.addEventListener('click', () => openModal('login'));
     if (openLoginCard) openLoginCard.addEventListener('click', () => openModal('login'));
     if (openRegisterNav) openRegisterNav.addEventListener('click', () => openModal('register'));
     if (openRegisterHero) openRegisterHero.addEventListener('click', () => openModal('register'));
 
-    // Klikanie zakładek górnych
     if (tabLoginBtn) tabLoginBtn.addEventListener('click', () => switchTab('login'));
     if (tabRegisterBtn) tabRegisterBtn.addEventListener('click', () => switchTab('register'));
 
-    // Przełączanie ze stopki
     if (switchAuthBtn) {
         switchAuthBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -121,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Link "Zapomniałeś hasła?"
     if (showForgotBtn) {
         showForgotBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -129,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Zamknięcia modalu
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
     window.addEventListener('click', (e) => {
@@ -143,58 +137,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================================
-    // OBSŁUGA WYSYŁANIA FORMULARZY ORAZ ANIMOWANEGO WYSUWANIA BŁĘDÓW
+    // POMOCNICZA FUNKCJA WALIDACJI PUSTYCH PÓL
     // ==========================================================================
-    const allForms = document.querySelectorAll('.auth-form');
+    function validateFormInputs(form) {
+        let formIsValid = true;
+        const inputs = form.querySelectorAll('input');
 
-    allForms.forEach(form => {
-        form.addEventListener('submit', (e) => {
+        inputs.forEach(input => {
+            const fieldContainer = input.closest('.input-field');
+
+            if (!input.value.trim()) {
+                if (fieldContainer) fieldContainer.classList.add('error');
+                formIsValid = false;
+            } else {
+                if (fieldContainer) fieldContainer.classList.remove('error');
+            }
+
+            input.oninput = () => {
+                if (input.value.trim() && fieldContainer) {
+                    fieldContainer.classList.remove('error');
+                }
+            };
+        });
+
+        return formIsValid;
+    }
+
+    // ==========================================================================
+    // OBSŁUGA POSZCZEGÓLNYCH FORMULARZY OSOBNO
+    // ==========================================================================
+
+    // 1. Logowanie
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            let formIsValid = true;
-            const inputs = form.querySelectorAll('input');
-
-            inputs.forEach(input => {
-                const fieldContainer = input.closest('.input-field');
-
-                if (!input.value.trim()) {
-                    if (fieldContainer) fieldContainer.classList.add('error');
-                    formIsValid = false;
-                } else {
-                    if (fieldContainer) fieldContainer.classList.remove('error');
-                }
-
-                input.oninput = () => {
-                    if (input.value.trim() && fieldContainer) {
-                        fieldContainer.classList.remove('error');
-                    }
-                };
-            });
-
-            if (formIsValid) {
-                if (form.id === 'registerForm') {
-                    // Przejście do ekranu wpisywania kodu po pomyślnej rejestracji
-                    switchTab('verify');
-                } 
-                else if (form.id === 'verifyForm') {
-                    const codeInput = document.getElementById('verificationCode');
-                    if (codeInput && codeInput.value.trim().length < 6) {
-                        const fieldContainer = codeInput.closest('.input-field');
-                        if (fieldContainer) fieldContainer.classList.add('error');
-                        return;
-                    }
-                    alert('Konto zostało pomyślnie zweryfikowane!');
-                    window.location.href = '/strona/dashboard.html';
-                }
-                else if (form.id === 'forgotForm') {
-                    alert('Link do resetu hasła został wysłany!');
-                    switchTab('login');
-                } else {
-                    window.location.href = '/strona/dashboard.html';
-                }
+            if (validateFormInputs(loginForm)) {
+                window.location.href = '/strona/dashboard.html';
             }
         });
-    });
+    }
+
+    // 2. Rejestracja (przechodzi do kodu weryfikacyjnego)
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateFormInputs(registerForm)) {
+                switchTab('verify');
+            }
+        });
+    }
+
+    // 3. Weryfikacja kodu e-mail
+    if (verifyForm) {
+        verifyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const codeInput = document.getElementById('verificationCode');
+            const fieldContainer = codeInput ? codeInput.closest('.input-field') : null;
+
+            if (!codeInput || codeInput.value.trim().length < 6) {
+                if (fieldContainer) fieldContainer.classList.add('error');
+                return; // Zatrzymuje działanie i nie pozwala przejść dalej
+            }
+
+            if (fieldContainer) fieldContainer.classList.remove('error');
+            alert('Konto zostało pomyślnie zweryfikowane!');
+            window.location.href = '/strona/dashboard.html';
+        });
+    }
+
+    // 4. Reset hasła
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateFormInputs(forgotForm)) {
+                alert('Link do resetu hasła został wysłany!');
+                switchTab('login');
+            }
+        });
+    }
 
     // Obsługa ponownego wysyłania kodu
     const resendBtn = document.getElementById('resendCodeBtn');
