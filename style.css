@@ -504,6 +504,7 @@ body {
     color: white;
 }
 
+/* CENNIK */
 .pricing {
     max-width: 750px;
     margin: auto;
@@ -517,17 +518,37 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 22px 28px;
+    padding: 24px 30px;
     border-bottom: 1px solid var(--border);
+    transition: background 0.2s ease;
+}
+
+.price-row:hover {
+    background: rgba(139, 92, 246, 0.03);
 }
 
 .price-row:last-child {
     border-bottom: none;
 }
 
-.price-row strong {
+.price-info strong {
+    color: white;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+}
+
+.price-info p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.price-val {
     color: #c8a9ff;
     font-size: 18px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .cta {
