@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openLoginCard = document.getElementById('openLoginBtnCard');
 
     let currentTab = 'login';
+    let registeredEmail = ''; // Zmienna przechowująca e-mail do weryfikacji
 
     // Funkcja do przełączania widoków
     function switchTab(tab) {
@@ -164,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // OBSŁUGA POSZCZEGÓLNYCH FORMULARZY OSOBNO
+    // OBSŁUGA POSZCZEGÓLNYCH FORMULARZY Z INTEGRACJĄ BACKENDU (NODE.JS)
     // ==========================================================================
 
     // 1. Logowanie
@@ -177,17 +178,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Rejestracja (przechodzi do kodu weryfikacyjnego)
+    // 2. Rejestracja – wysyła dane do lokalnego serwera Node.js i uruchamia wysyłkę maila
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
             if (validateFormInputs(registerForm)) {
-                switchTab('verify');
+                const nick = document.getElementById('registerNick').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+
+                registeredEmail = email; // Zapamiętujemy e-mail do kroku weryfikacji
+
+                fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, nick, password })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        switchTab('verify'); // Przechodzi do ekranu wpisywania kodu
+                    } else {
+                        alert(data.message || 'Wystąpił błąd podczas rejestracji.');
+                    }
+                })
+                .catch(err => {
+                    console.error('Błąd połączenia z serwerem:', err);
+                    alert('Nie udało się połączyć z serwerem backendu (czy uruchomiłeś node server.js?).');
+                });
             }
         });
     }
 
-    // 3. Weryfikacja kodu e-mail
+    // 3. Weryfikacja kodu e-mail – wysyła kod do sprawdzenia na serwer Node.js
     if (verifyForm) {
         verifyForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -197,12 +220,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!codeInput || codeInput.value.trim().length < 6) {
                 if (fieldContainer) fieldContainer.classList.add('error');
-                return; // Zatrzymuje działanie i nie pozwala przejść dalej
+                return;
             }
 
             if (fieldContainer) fieldContainer.classList.remove('error');
-            alert('Konto zostało pomyślnie zweryfikowane!');
-            window.location.href = '/strona/dashboard.html';
+            const code = codeInput.value.trim();
+
+            fetch('http://localhost:3000/api/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: registeredEmail, code })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Konto zostało pomyślnie zweryfikowane!');
+                    window.location.href = '/strona/dashboard.html';
+                } else {
+                    if (fieldContainer) fieldContainer.classList.add('error');
+                    alert(data.message || 'Niepoprawny kod weryfikacyjny.');
+                }
+            })
+            .catch(err => {
+                console.error('Błąd weryfikacji:', err);
+                alert('Błąd połączenia z serwerem.');
+            });
         });
     }
 
