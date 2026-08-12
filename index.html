@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>PX Graphics — Grafiki na zamówienie</title>
-    <meta name="description" content="Profesjonalne grafiki na zamówienie. Bannery, avatary, loga i grafiki Minecraft.">
-
+    <title>SX Studio — Profesjonalne Grafiki</title>
+    <meta name="description" content="Nowoczesne grafiki na zamówienie. Bannery, avatary, loga i projekty dla graczy i firm.">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header class="navbar">
     <div class="logo">
-        PX<span>GRAPHICS</span>
+        SX<span>STUDIO</span>
     </div>
 
     <nav>
@@ -24,333 +21,112 @@
         <a href="#pricing">Cennik</a>
     </nav>
 
-    <button class="cart-button" onclick="openCart()">
+    <button class="cart-button" onclick="toggleCart()">
         Koszyk
         <span id="cartCount">0</span>
     </button>
 </header>
 
-
 <main>
-
     <!-- HERO -->
-
     <section class="hero" id="home">
-
         <div class="hero-content">
-
-            <div class="badge">
-                ✦ Grafiki na zamówienie
-            </div>
-
-            <h1>
-                Twoja wizja.
-                <span>Moja grafika.</span>
-            </h1>
-
-            <p>
-                Tworzę nowoczesne grafiki dopasowane do Twojego projektu,
-                serwera Minecraft, social mediów lub marki.
-            </p>
-
+            <div class="badge">✦ Profesjonalny Design</div>
+            <h1>Twój wizerunek. <br><span>Moja grafika.</span></h1>
+            <p>Tworzę nowoczesne grafiki dopasowane do Twojego projektu, kanału social media oraz serwera.</p>
             <div class="hero-buttons">
-                <a href="#offer" class="btn primary">
-                    Zobacz ofertę
-                </a>
-
-                <a href="#portfolio" class="btn secondary">
-                    Portfolio
-                </a>
+                <a href="#offer" class="btn primary">Zobacz ofertę</a>
+                <a href="#pricing" class="btn secondary">Sprawdź cennik</a>
             </div>
-
         </div>
-
         <div class="hero-card">
-
             <div class="card-glow"></div>
-
             <div class="preview">
-                <span>PX</span>
-                <strong>GRAPHICS</strong>
-                <small>CREATIVE DESIGN</small>
+                <span>SX</span>
+                <strong>STUDIO</strong>
+                <small>VISUAL ART</small>
             </div>
-
         </div>
-
     </section>
-
 
     <!-- OFERTA -->
-
     <section class="section" id="offer">
-
         <div class="section-header">
-            <span>CO TWORZĘ</span>
+            <span>OFERTA</span>
             <h2>Wybierz swoją <strong>grafikę</strong></h2>
-            <p>
-                Każdy projekt tworzę indywidualnie według Twoich wymagań.
-            </p>
+            <p>Każdy projekt realizuję indywidualnie z dbałością o każdy detal.</p>
         </div>
 
-
-        <div class="products">
-
-            <article class="product">
-
-                <div class="product-icon">▣</div>
-
-                <h3>Avatar</h3>
-
-                <p>
-                    Avatar na Discord, Minecraft, YouTube lub social media.
-                </p>
-
-                <div class="price">
-                    15 <small>PLN</small>
-                </div>
-
-                <button onclick="addToCart('Avatar', 15)">
-                    Dodaj do koszyka
-                </button>
-
-            </article>
-
-
-            <article class="product featured">
-
-                <div class="popular">
-                    POPULARNE
-                </div>
-
-                <div class="product-icon">◆</div>
-
-                <h3>Banner</h3>
-
-                <p>
-                    Profesjonalny banner na Discord, stronę lub serwer.
-                </p>
-
-                <div class="price">
-                    30 <small>PLN</small>
-                </div>
-
-                <button onclick="addToCart('Banner', 30)">
-                    Dodaj do koszyka
-                </button>
-
-            </article>
-
-
-            <article class="product">
-
-                <div class="product-icon">✦</div>
-
-                <h3>Logo</h3>
-
-                <p>
-                    Unikalne logo dopasowane do Twojej marki lub projektu.
-                </p>
-
-                <div class="price">
-                    40 <small>PLN</small>
-                </div>
-
-                <button onclick="addToCart('Logo', 40)">
-                    Dodaj do koszyka
-                </button>
-
-            </article>
-
-
-            <article class="product">
-
-                <div class="product-icon">⬢</div>
-
-                <h3>Grafika Minecraft</h3>
-
-                <p>
-                    Grafiki reklamowe, miniatury i projekty związane z Minecraft.
-                </p>
-
-                <div class="price">
-                    25 <small>PLN</small>
-                </div>
-
-                <button onclick="addToCart('Grafika Minecraft', 25)">
-                    Dodaj do koszyka
-                </button>
-
-            </article>
-
+        <div class="products" id="productsGrid">
+            <!-- Generowane dynamicznie przez JavaScript -->
         </div>
-
     </section>
-
 
     <!-- PORTFOLIO -->
-
-    <section class="section portfolio-section" id="portfolio">
-
+    <section class="section" id="portfolio">
         <div class="section-header">
-            <span>MOJE PRACE</span>
+            <span>REALIZACJE</span>
             <h2>Portfolio</h2>
-            <p>
-                Przykładowe miejsce na Twoje wykonane projekty.
-            </p>
+            <p>Przykładowe projekty zrealizowane dla klientów.</p>
         </div>
-
 
         <div class="portfolio">
-
-            <div class="portfolio-item">
-                <div class="portfolio-placeholder">
-                    <span>PROJECT 01</span>
-                </div>
-            </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-placeholder pink">
-                    <span>PROJECT 02</span>
-                </div>
-            </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-placeholder">
-                    <span>PROJECT 03</span>
-                </div>
-            </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-placeholder pink">
-                    <span>PROJECT 04</span>
-                </div>
-            </div>
-
+            <div class="portfolio-item"><div class="portfolio-placeholder"><span>PROJEKT 01</span></div></div>
+            <div class="portfolio-item"><div class="portfolio-placeholder pink"><span>PROJEKT 02</span></div></div>
+            <div class="portfolio-item"><div class="portfolio-placeholder pink"><span>PROJEKT 03</span></div></div>
+            <div class="portfolio-item"><div class="portfolio-placeholder"><span>PROJEKT 04</span></div></div>
         </div>
-
     </section>
-
 
     <!-- CENNIK -->
-
     <section class="section" id="pricing">
-
         <div class="section-header">
-            <span>CENNIK</span>
-            <h2>Proste ceny</h2>
-            <p>
-                Bez ukrytych kosztów. Płacisz za wybraną grafikę.
-            </p>
+            <span>CENNIK USŁUG</span>
+            <h2>Przejrzyste ceny</h2>
+            <p>Wybierz interesującą Cię usługę i sprawdź koszt.</p>
         </div>
 
-
-        <div class="pricing">
-
-            <div class="price-row">
-                <span>Avatar</span>
-                <strong>15 zł</strong>
-            </div>
-
-            <div class="price-row">
-                <span>Grafika Minecraft</span>
-                <strong>25 zł</strong>
-            </div>
-
-            <div class="price-row">
-                <span>Banner</span>
-                <strong>30 zł</strong>
-            </div>
-
-            <div class="price-row">
-                <span>Logo</span>
-                <strong>40 zł</strong>
-            </div>
-
+        <div class="pricing" id="pricingList">
+            <!-- Generowane dynamicznie przez JavaScript -->
         </div>
-
     </section>
-
 
     <!-- CTA -->
-
     <section class="cta">
-
         <div>
-            <span>MASZ POMYSŁ?</span>
-
-            <h2>
-                Stwórzmy coś
-                <strong>wyjątkowego.</strong>
-            </h2>
-
-            <p>
-                Wybierz grafikę z oferty i dodaj ją do koszyka.
-            </p>
+            <span>ZACZYNAMY?</span>
+            <h2>Masz pomysł? <strong>Zrealizujmy go.</strong></h2>
+            <p>Wybierz interesującą Cię usługę i dodaj ją do koszyka.</p>
         </div>
-
-        <a href="#offer" class="btn primary">
-            Zamów grafikę
-        </a>
-
+        <a href="#offer" class="btn primary">Zamów teraz</a>
     </section>
-
 </main>
 
-
 <footer>
-
-    <div class="footer-logo">
-        PX<span>GRAPHICS</span>
-    </div>
-
-    <p>
-        © 2026 PX Graphics. Wszystkie prawa zastrzeżone.
-    </p>
-
+    <div class="footer-logo">SX<span>STUDIO</span></div>
+    <p>© 2026 SX Studio. Wszelkie prawa zastrzeżone.</p>
 </footer>
 
-
 <!-- KOSZYK -->
-
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart(event)">
-
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()">
     <div class="cart" onclick="event.stopPropagation()">
-
         <div class="cart-header">
-
             <h2>Twój koszyk</h2>
-
-            <button onclick="closeCart()">×</button>
-
+            <button onclick="toggleCart()">×</button>
         </div>
-
-
         <div id="cartItems" class="cart-items">
-            <p class="empty">
-                Twój koszyk jest pusty.
-            </p>
+            <p class="empty">Koszyk jest pusty.</p>
         </div>
-
-
         <div class="cart-bottom">
-
             <div class="total">
                 <span>Razem</span>
                 <strong id="cartTotal">0 zł</strong>
             </div>
-
-            <button class="checkout" onclick="checkout()">
-                Przejdź do zamówienia
-            </button>
-
+            <button class="checkout" onclick="checkout()">Przejdź do zamówienia</button>
         </div>
-
     </div>
-
 </div>
 
-
 <script src="script.js"></script>
-
 </body>
 </html>
