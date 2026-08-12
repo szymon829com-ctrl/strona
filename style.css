@@ -340,6 +340,212 @@ body {
 }
 
 /* ==========================================================================
+   SEKCJA CENNIK (PRICING)
+   ========================================================================== */
+.pricing-container {
+    max-width: 1400px;
+    margin: 100px auto;
+    padding: 0 8%;
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.pricing-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.pricing-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    align-items: stretch;
+}
+
+.pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: var(--transition);
+}
+
+.pricing-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Wyróżniony plan Pro+ (Zielony akcent SimPay) */
+.pricing-card.popular-green {
+    border: 2px solid #10b981;
+    background: rgba(16, 185, 129, 0.03);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.08);
+}
+
+.card-badge-green {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: #10b981;
+    color: #050710;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 6px;
+}
+
+.plan-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.plan-desc {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    min-height: 52px;
+    margin-bottom: 24px;
+}
+
+.plan-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.plan-price span {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.plan-period {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sub-period {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+/* Przyciski w kartach cennika */
+.btn-pricing-outline {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--bg-card-border);
+    color: var(--text-main);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 28px;
+    transition: var(--transition);
+}
+
+.btn-pricing-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.action-buttons-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.btn-green-solid {
+    background: #10b981;
+    color: #050710;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-green-solid:hover {
+    background: #059669;
+}
+
+.btn-green-outline {
+    background: transparent;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-green-outline:hover {
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.features-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.4;
+}
+
+.plan-features li strong {
+    color: var(--text-main);
+}
+
+/* ==========================================================================
    MODAL (OKIENKO AUTORYZACJI)
    ========================================================================== */
 .modal-overlay {
@@ -551,7 +757,7 @@ body {
     color: var(--text-dim);
 }
 
-/* WYSUWANY KOMUNIKAT BŁĘDU (Z PRAWEJ STRONY NA DÓŁ) */
+/* WYSUWANY KOMUNIKAT BŁĘDU */
 .field-error {
     position: absolute;
     right: 0;
@@ -572,7 +778,6 @@ body {
     pointer-events: none;
 }
 
-/* Trójkąt wskazujący pole */
 .field-error::before {
     content: '';
     position: absolute;
@@ -583,7 +788,6 @@ body {
     border-color: transparent transparent #ef4444 transparent;
 }
 
-/* Stan błędu – aktywujący wysunięcie dymku */
 .input-field.error input {
     border-color: #ef4444 !important;
     box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
