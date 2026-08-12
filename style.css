@@ -340,7 +340,7 @@ body {
 }
 
 /* ==========================================================================
-   MODAL (OKIENKO AUTORYZACI)
+   MODAL (OKIENKO AUTORYZACJI)
    ========================================================================== */
 .modal-overlay {
     position: fixed;
@@ -534,6 +534,21 @@ body {
 .input-field input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+/* Stylizacja pola kodów weryfikacyjnych */
+#verificationCode {
+    text-align: center;
+    letter-spacing: 4px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+#verificationCode::placeholder {
+    letter-spacing: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--text-dim);
 }
 
 /* WYSUWANY KOMUNIKAT BŁĘDU (Z PRAWEJ STRONY NA DÓŁ) */
