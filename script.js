@@ -1,144 +1,96 @@
+const services = [
+    { id: 1, name: "Avatar", price: 15, desc: "Avatar na Discord, YouTube lub social media.", icon: "▣", featured: false },
+    { id: 2, name: "Banner", price: 30, desc: "Profesjonalny banner promocyjny lub na profil.", icon: "◆", featured: true },
+    { id: 3, name: "Logo", price: 40, desc: "Unikalny znak graficzny dopasowany do marki.", icon: "✦", featured: false },
+    { id: 4, name: "Grafika Minecraft", price: 25, desc: "Miniatury, grafiki serwerowe i reklamowe.", icon: "⬢", featured: false }
+];
+
 let cart = [];
 
+function initStore() {
+    const productsGrid = document.getElementById('productsGrid');
+    const pricingList = document.getElementById('pricingList');
 
-/* DODAWANIE DO KOSZYKA */
+    if (productsGrid) {
+        productsGrid.innerHTML = services.map(s => `
+            <article class="product ${s.featured ? 'featured' : ''}">
+                ${s.featured ? '<div class="popular">POPULARNE</div>' : ''}
+                <div class="product-icon">${s.icon}</div>
+                <h3>${s.name}</h3>
+                <p>${s.desc}</p>
+                <div class="price">${s.price} <small>PLN</small></div>
+                <button onclick="addToCart(${s.id})">Dodaj do koszyka</button>
+            </article>
+        `).join('');
+    }
 
-function addToCart(name, price) {
-
-    cart.push({
-        name: name,
-        price: price
-    });
-
-    updateCart();
-
-    openCart();
+    if (pricingList) {
+        pricingList.innerHTML = services.map(s => `
+            <div class="price-row">
+                <span>${s.name}</span>
+                <strong>${s.price} zł</strong>
+            </div>
+        `).join('');
+    }
 }
 
+function toggleCart() {
+    document.getElementById('cartOverlay').classList.toggle('active');
+}
 
-/* USUWANIE PRODUKTU */
+function addToCart(id) {
+    const service = services.find(s => s.id === id);
+    if (!service) return;
+
+    cart.push(service);
+    updateCartUI();
+    toggleCart();
+}
 
 function removeFromCart(index) {
-
     cart.splice(index, 1);
-
-    updateCart();
+    updateCartUI();
 }
 
-
-/* AKTUALIZACJA KOSZYKA */
-
-function updateCart() {
-
-    const cartItems = document.getElementById("cartItems");
-    const cartCount = document.getElementById("cartCount");
-    const cartTotal = document.getElementById("cartTotal");
+function updateCartUI() {
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
 
     cartCount.textContent = cart.length;
 
-
     if (cart.length === 0) {
-
-        cartItems.innerHTML = `
-            <p class="empty">
-                Twój koszyk jest pusty.
-            </p>
-        `;
-
-        cartTotal.textContent = "0 zł";
-
+        cartItems.innerHTML = `<p class="empty">Koszyk jest pusty.</p>`;
+        cartTotal.textContent = `0 zł`;
         return;
     }
 
-
     let total = 0;
-
-
     cartItems.innerHTML = cart.map((item, index) => {
-
         total += item.price;
-
         return `
             <div class="cart-item">
-
                 <div class="cart-item-info">
-
                     <strong>${item.name}</strong>
-
-                    <span>${item.price} zł</span>
-
+                    <span>${item.price} PLN</span>
                 </div>
-
-                <button
-                    class="remove"
-                    onclick="removeFromCart(${index})"
-                >
-                    Usuń
-                </button>
-
+                <button class="remove" onclick="removeFromCart(${index})">Usuń</button>
             </div>
         `;
-
-    }).join("");
-
+    }).join('');
 
     cartTotal.textContent = `${total} zł`;
 }
 
-
-/* OTWIERANIE KOSZYKA */
-
-function openCart() {
-
-    document
-        .getElementById("cartOverlay")
-        .classList.add("active");
-
-    document.body.style.overflow = "hidden";
-}
-
-
-/* ZAMYKANIE KOSZYKA */
-
-function closeCart(event) {
-
-    if (event && event.target !== event.currentTarget) {
-        return;
-    }
-
-    document
-        .getElementById("cartOverlay")
-        .classList.remove("active");
-
-    document.body.style.overflow = "";
-}
-
-
-/* ZAMÓWIENIE */
-
 function checkout() {
-
     if (cart.length === 0) {
-
-        alert("Twój koszyk jest pusty.");
-
+        alert('Twój koszyk jest pusty!');
         return;
     }
-
-
-    const items = cart
-        .map(item => `${item.name} - ${item.price} zł`)
-        .join("\n");
-
-
-    const total = cart.reduce(
-        (sum, item) => sum + item.price,
-        0
-    );
-
-
-    alert(
-        `Zamówienie:\n\n${items}\n\nRazem: ${total} zł\n\n` +
-        `Tutaj możemy później podłączyć formularz zamówienia, Discorda lub płatności.`
-    );
+    alert('Dziękujemy za złożenie zamówienia! Wkrótce skontaktujemy się w celu ustalenia szczegółów.');
+    cart = [];
+    updateCartUI();
+    toggleCart();
 }
+
+document.addEventListener('DOMContentLoaded', initStore);
