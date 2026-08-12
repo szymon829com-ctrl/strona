@@ -41,12 +41,30 @@ body {
     z-index: 0;
 }
 
+/* Top Banner */
+.top-banner {
+    background-color: var(--primary-green);
+    color: #000000;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+    z-index: 20;
+}
+
+.top-banner a {
+    color: #000000;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
 /* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 8%;
+    padding: 20px 8%;
     position: relative;
     z-index: 10;
 }
@@ -96,6 +114,12 @@ body {
     color: var(--text-white);
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .btn-discord-nav {
     display: flex;
     align-items: center;
@@ -119,7 +143,7 @@ body {
 /* Hero Section - 2 Columns */
 .hero-container {
     max-width: 1200px;
-    margin: 60px auto 0;
+    margin: 40px auto 0;
     padding: 0 20px;
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -181,12 +205,13 @@ body {
 .btn-glow {
     background-color: var(--primary-green);
     color: #000;
-    padding: 14px 28px;
+    padding: 12px 24px;
     border-radius: 8px;
     font-weight: 700;
     text-decoration: none;
     box-shadow: 0 0 25px var(--primary-green-glow);
     transition: transform 0.2s, background-color 0.2s;
+    font-size: 14px;
 }
 
 .btn-glow:hover {
@@ -198,11 +223,12 @@ body {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-dark);
     color: var(--text-white);
-    padding: 14px 28px;
+    padding: 12px 24px;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
     transition: background 0.2s;
+    font-size: 14px;
 }
 
 .btn-glass:hover {
@@ -364,6 +390,10 @@ body {
     margin-bottom: 6px;
 }
 
+.modal-top h2 span {
+    color: var(--primary-green);
+}
+
 .modal-top p {
     font-size: 12px;
     color: var(--text-dim);
@@ -382,6 +412,11 @@ body {
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
+    transition: background 0.2s;
+}
+
+.discord-login-btn:hover {
+    background: #4752c4;
 }
 
 .or-separator {
@@ -406,6 +441,7 @@ body {
     border-radius: 8px;
     color: #fff;
     outline: none;
+    font-size: 14px;
 }
 
 .input-field input:focus {
@@ -421,6 +457,24 @@ body {
     font-weight: 700;
     cursor: pointer;
     margin-top: 8px;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #34d399;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.modal-footer a {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 600;
 }
 
 @media (max-width: 900px) {
