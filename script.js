@@ -91,13 +91,28 @@ function checkout() {
         alert('Twój koszyk jest pusty!');
         return;
     }
-    
+
+    const discordUser = prompt('Podaj swój nick na Discordzie (np. nazwa#0000 lub nazwa):');
+    if (!discordUser) return;
+
+    const additionalNotes = prompt('Dodatkowe uwagi do zamówienia (opcjonalnie, np. opis projektu):') || 'Brak';
+
     let summary = cart.map(item => `- ${item.name} (od ${item.price} PLN)`).join('\n');
     let total = cart.reduce((sum, item) => sum + item.price, 0);
 
-    const confirmed = confirm(`Twoje zamówienie:\n\n${summary}\n\nSzacowany koszt: od ${total} PLN\n\nKliknij OK, aby przejść do realizacji (kontakt / Discord).`);
-    
+    const confirmed = confirm(
+        `PODSUMOWANIE ZAMÓWIENIA:\n\n` +
+        `Discord: ${discordUser}\n` +
+        `Uwagi: ${additionalNotes}\n\n` +
+        `Wybrane usługi:\n${summary}\n\n` +
+        `Szacowany koszt: od ${total} PLN\n\n` +
+        `Kliknij OK, aby wyslac zamówienie.`
+    );
+
     if (confirmed) {
+        cart = [];
+        updateCartUI();
+        toggleCart();
         window.location.href = "https://discord.com/"; 
     }
 }
