@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SX Studio — Profesjonalne Grafiki</title>
-    <meta name="description" content="Nowoczesne grafiki na zamówienie. Bannery, avatary, loga i projekty dla graczy i firm.">
+    <meta name="description" content="Nowoczesne grafiki na zamówienie. Bannery, avatary, loga i projekty dla graczy i serwerów Minecraft.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,12 +31,12 @@
     <!-- HERO -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <div class="badge">✦ Profesjonalny Design</div>
-            <h1>Twój wizerunek. <br><span>Moja grafika.</span></h1>
-            <p>Tworzę nowoczesne grafiki dopasowane do Twojego projektu, kanału social media oraz serwera.</p>
+            <div class="badge">✦ Profesjonalny Design dla Graczy</div>
+            <h1>Twoja wizja. <br><span>Moja grafika.</span></h1>
+            <p>Tworzę unikalne bannery, grafiki Minecraft, loga i awatary, które wyróżnią Twój serwer i kanał social media.</p>
             <div class="hero-buttons">
                 <a href="#offer" class="btn primary">Zobacz ofertę</a>
-                <a href="#pricing" class="btn secondary">Sprawdź cennik</a>
+                <a href="#portfolio" class="btn secondary">Zobacz prace</a>
             </div>
         </div>
         <div class="hero-card">
@@ -54,11 +54,11 @@
         <div class="section-header">
             <span>OFERTA</span>
             <h2>Wybierz swoją <strong>grafikę</strong></h2>
-            <p>Każdy projekt realizuję indywidualnie z dbałością o każdy detal.</p>
+            <p>Każdy projekt realizuję indywidualnie z dbałością o najwyższą jakość.</p>
         </div>
 
         <div class="products" id="productsGrid">
-            <!-- Generowane dynamicznie przez JavaScript -->
+            <!-- Generowane dynamicznie przez JS -->
         </div>
     </section>
 
@@ -67,14 +67,35 @@
         <div class="section-header">
             <span>REALIZACJE</span>
             <h2>Portfolio</h2>
-            <p>Przykładowe projekty zrealizowane dla klientów.</p>
+            <p>Sprawdź przykładowe projekty zrealizowane w SX Studio.</p>
         </div>
 
-        <div class="portfolio">
-            <div class="portfolio-item"><div class="portfolio-placeholder"><span>PROJEKT 01</span></div></div>
-            <div class="portfolio-item"><div class="portfolio-placeholder pink"><span>PROJEKT 02</span></div></div>
-            <div class="portfolio-item"><div class="portfolio-placeholder pink"><span>PROJEKT 03</span></div></div>
-            <div class="portfolio-item"><div class="portfolio-placeholder"><span>PROJEKT 04</span></div></div>
+        <div class="portfolio" id="portfolioGrid">
+            <!-- Wstawione Twoje grafiki -->
+            <div class="portfolio-item" onclick="openLightbox('banner_inny_napis.jpg')">
+                <img src="banner_inny_napis.jpg" alt="Banner Minecraft">
+                <div class="portfolio-overlay"><span>Banner Wkrótce</span></div>
+            </div>
+            <div class="portfolio-item" onclick="openLightbox('image.png')">
+                <img src="image.png" alt="Banner Serwera">
+                <div class="portfolio-overlay"><span>Banner Start Serwera</span></div>
+            </div>
+            <div class="portfolio-item" onclick="openLightbox('Powitalnia.jpg')">
+                <img src="Powitalnia.jpg" alt="Grafika Discord">
+                <div class="portfolio-overlay"><span>Powitalnia Discord</span></div>
+            </div>
+            <div class="portfolio-item" onclick="openLightbox('design-minecraft-thumbnail-for-you_2.jpg')">
+                <img src="design-minecraft-thumbnail-for-you_2.jpg" alt="Grafika Itemu">
+                <div class="portfolio-overlay"><span>Grafika Przedmiotu (Item)</span></div>
+            </div>
+            <div class="portfolio-item" onclick="openLightbox('render.jpg')">
+                <img src="render.jpg" alt="Render Postaci">
+                <div class="portfolio-overlay"><span>Render Postaci 3D</span></div>
+            </div>
+            <div class="portfolio-item" onclick="openLightbox('design-minecraft-thumbnail-for-you.jpg')">
+                <img src="design-minecraft-thumbnail-for-you.jpg" alt="Miniatura YouTube">
+                <div class="portfolio-overlay"><span>Miniatura YouTube</span></div>
+            </div>
         </div>
     </section>
 
@@ -83,11 +104,11 @@
         <div class="section-header">
             <span>CENNIK USŁUG</span>
             <h2>Przejrzyste ceny</h2>
-            <p>Wybierz interesującą Cię usługę i sprawdź koszt.</p>
+            <p>Jasne zasady współpracy bez ukrytych kosztów.</p>
         </div>
 
         <div class="pricing" id="pricingList">
-            <!-- Generowane dynamicznie przez JavaScript -->
+            <!-- Generowane dynamicznie przez JS -->
         </div>
     </section>
 
@@ -95,8 +116,8 @@
     <section class="cta">
         <div>
             <span>ZACZYNAMY?</span>
-            <h2>Masz pomysł? <strong>Zrealizujmy go.</strong></h2>
-            <p>Wybierz interesującą Cię usługę i dodaj ją do koszyka.</p>
+            <h2>Masz pomysł na projekt? <strong>Zrealizujmy go.</strong></h2>
+            <p>Dodaj wybrane usługi do koszyka i przejdź do zamówienia.</p>
         </div>
         <a href="#offer" class="btn primary">Zamów teraz</a>
     </section>
@@ -125,6 +146,12 @@
             <button class="checkout" onclick="checkout()">Przejdź do zamówienia</button>
         </div>
     </div>
+</div>
+
+<!-- LIGHTBOX DO ZDJĘĆ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightboxImg" src="" alt="Podgląd">
 </div>
 
 <script src="script.js"></script>
