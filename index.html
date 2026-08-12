@@ -30,6 +30,279 @@
             <a href="#" class="nav-link active">Jak to działa</a>
             <a href="#" class="nav-link">Szablony</a>
             <a href="#" class="nav-link">Płatności</a>
+            <a href="#pricing" class="nav-link">Cennik</a>
+            <a href="#" class="nav-link">Dokumentacja</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="btn-discord-nav" id="openLoginBtn">Zaloguj się</button>
+            <a href="#" class="btn-glow" id="openRegisterBtnNav">Zarejestruj się</a>
+        </div>
+    </nav>
+
+    <!-- Główna sekcja (Hero) -->
+    <main class="hero-container">
+        <div class="hero-left">
+            <div class="status-tag">
+                <span class="ping-dot"></span> 0% prowizji od każdej sprzedaży
+            </div>
+            <h1>Darmowy itemshop <span>Minecraft</span></h1>
+            <p>Podłącz BLIK, Stripe albo PayPal, dodaj produkty i pozwól pluginowi wydawać nagrody automatycznie na Twoim serwerze.</p>
+            
+            <div class="cta-group">
+                <a href="#" class="btn-glow" id="openRegisterBtnHero">Stwórz sklep za darmo &rarr;</a>
+                <a href="#" class="btn-glass">Zobacz dokumentację</a>
+            </div>
+
+            <div class="features-mini">
+                <div class="feat-item"><span>Błyskawiczna wydawka</span></div>
+                <div class="feat-item"><span>Bezpieczne płatności</span></div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="featured-card">
+                <div class="card-badge">POPULARNE</div>
+                <h3>Ranga VIP (30 dni)</h3>
+                <div class="price">19.99 <span>PLN</span></div>
+                <ul class="card-features">
+                    <li>Dostęp do komendy /fly na lobby</li>
+                    <li>Unikalny prefiks na czacie</li>
+                    <li>+50% więcej monet za wygrane</li>
+                    <li>Zestaw kluczy do skrzyń VIP</li>
+                </ul>
+                <button class="btn-buy" id="openLoginBtnCard">Kup Teraz</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sekcja Cennik -->
+    <section class="pricing-container" id="pricing">
+        <div class="pricing-header">
+            <h2>Cennik</h2>
+            <p>Wybierz plan dopasowany do Twoich potrzeb i zacznij sprzedawać online! Korzystaj z darmowej wersji lub odblokuj pełnię możliwości w wersji Pro.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- 1. Plan Free -->
+            <div class="pricing-card">
+                <div class="plan-name">Free</div>
+                <div class="plan-desc">Podstawowe funkcje do rozpoczęcia sprzedaży online, bez opłat.</div>
+                <div class="plan-price">0 <span>wPLN</span></div>
+                <div class="plan-period">netto miesięcznie</div>
+                
+                <button class="btn-pricing-outline">Wybierz plan</button>
+                
+                <div class="features-title">Dostępne funkcje:</div>
+                <ul class="plan-features">
+                    <li>✓ Darmowa subdomena sklepu <strong>twojanazwa.myis.pl</strong></li>
+                    <li>✓ Możliwość tworzenia przedmiotów i pakietów</li>
+                    <li>✓ Historia zamówień</li>
+                    <li>✓ Vouchery</li>
+                    <li>✓ Kody rabatowe</li>
+                    <li>✓ Statystyki sprzedaży</li>
+                    <li>✓ System translacji</li>
+                    <li>✓ System walut</li>
+                    <li>✓ Dostęp do API sklepu</li>
+                </ul>
+            </div>
+
+            <!-- 2. Plan Pro+ (Wyróżniony na zielono) -->
+            <div class="pricing-card popular-green">
+                <div class="card-badge-green">Polecane</div>
+                <div class="plan-name">Pro+</div>
+                <div class="plan-desc">Wszystkie funkcje ItemShopSys oraz 1,2% prowizji na przelewy online i BLIK w SimPay.pl</div>
+                <div class="plan-price">0 <span>wPLN</span></div>
+                <div class="plan-period">netto miesięcznie</div>
+                
+                <div class="action-buttons-group">
+                    <a href="#" class="btn-green-solid">Instrukcja aktywacji</a>
+                    <a href="#" class="btn-green-outline">Więcej o SimPay</a>
+                </div>
+                
+                <div class="features-title">Dostępne funkcje:</div>
+                <ul class="plan-features">
+                    <li>✓ Darmowa subdomena sklepu <strong>twojanazwa.myis.pl</strong></li>
+                    <li>✓ Możliwość tworzenia przedmiotów i pakietów</li>
+                    <li>✓ Historia zamówień</li>
+                    <li>✓ Vouchery</li>
+                    <li>✓ Kody rabatowe</li>
+                    <li>✓ Statystyki sprzedaży</li>
+                    <li>✓ System translacji</li>
+                    <li>✓ System walut</li>
+                    <li>✓ Dostęp do API sklepu</li>
+                    <li>✓ Możliwość ustawienia własnej domeny (SaaS)</li>
+                    <li>✓ Ogłoszenia w sklepie</li>
+                    <li>✓ Cele miesięczne</li>
+                    <li>✓ Dzienna nagroda</li>
+                    <li>✓ Brak informacji o ItemShopSys w stopce sklepu (SaaS)</li>
+                    <li>✓ Prowizja <strong>1,2%</strong> na Przelewy Online i BLIK</li>
+                    <li>✓ Codzienne wypłaty w SimPay</li>
+                    <li>✓ Wszystkie funkcje ItemShopSys</li>
+                </ul>
+            </div>
+
+            <!-- 3. Plan Pro -->
+            <div class="pricing-card">
+                <div class="plan-name">Pro</div>
+                <div class="plan-desc">Dostęp do wszystkich funkcji ItemShopSys.</div>
+                <div class="plan-price">20.83 <span>wPLN</span></div>
+                <div class="plan-period">
+                    netto miesięcznie*
+                    <span class="sub-period">*20.83 wPLN/mies. przy płatności rocznej (oszczędzasz 2 miesiące!). Przy rozliczeniu miesięcznym: 24.99 wPLN/mies.</span>
+                </div>
+                
+                <button class="btn-pricing-outline">Wybierz plan</button>
+                
+                <div class="features-title">Dostępne funkcje:</div>
+                <ul class="plan-features">
+                    <li>✓ Darmowa subdomena sklepu <strong>twojanazwa.myis.pl</strong></li>
+                    <li>✓ Możliwość tworzenia przedmiotów i pakietów</li>
+                    <li>✓ Historia zamówień</li>
+                    <li>✓ Vouchery</li>
+                    <li>✓ Kody rabatowe</li>
+                    <li>✓ Statystyki sprzedaży</li>
+                    <li>✓ System translacji</li>
+                    <li>✓ System walut</li>
+                    <li>✓ Dostęp do API sklepu</li>
+                    <li>✓ Możliwość ustawienia własnej domeny (SaaS)</li>
+                    <li>✓ Ogłoszenia w sklepie</li>
+                    <li>✓ Cele miesięczne</li>
+                    <li>✓ Dzienna nagroda</li>
+                    <li>✓ Brak informacji o ItemShopSys w stopce sklepu (SaaS)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Okienko Autoryzacji (Modal) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box">
+            <button class="modal-close" id="closeAuthBtn">&times;</button>
+            
+            <div class="modal-top">
+                <div class="modal-logo">CS</div>
+                <h2 id="modalTitle">Konto <span>CraftShop</span></h2>
+                <p id="modalSubtitle">Wybierz metodę autoryzacji</p>
+            </div>
+
+            <!-- Zakładki Taby -->
+            <div class="auth-tabs" id="authTabs">
+                <button type="button" class="tab-btn active" id="tabLoginBtn">Zaloguj się</button>
+                <button type="button" class="tab-btn" id="tabRegisterBtn">Zarejestruj się</button>
+            </div>
+
+            <!-- Logowanie Społecznościowe (Tylko Discord) -->
+            <div class="social-login-group" id="socialGroup" style="grid-template-columns: 1fr;">
+                <a href="https://discord.com/oauth2/authorize" class="social-btn discord-btn">
+                    <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor">
+                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83a72.37,72.37,0,0,0-3.36,0A105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.87,53,48.73,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.1,53,91,65.69,84.69,65.69Z"/>
+                    </svg>
+                    Zaloguj przez Discord
+                </a>
+            </div>
+
+            <div class="or-separator" id="orSeparator">LUB FORMULARZEM</div>
+
+            <!-- Formularz Logowania -->
+            <form class="auth-form active" id="loginForm">
+                <div class="input-field">
+                    <input type="text" placeholder="E-mail lub Nick z Gry" id="loginIdentifier">
+                    <span class="field-error">Proszę wypełnić to pole</span>
+                </div>
+                <div class="input-field">
+                    <input type="password" placeholder="Hasło" id="loginPassword">
+                    <span class="field-error">Proszę wypełnić to pole</span>
+                </div>
+                <div class="form-options">
+                    <a href="#" class="link-btn" id="showForgot">Zapomniałeś hasła?</a>
+                </div>
+                <button type="submit" class="btn-submit">Zaloguj się</button>
+            </form>
+
+            <!-- Formularz Rejestracji -->
+            <form class="auth-form" id="registerForm">
+                <div class="input-field">
+                    <input type="text" placeholder="Nick w Minecraft" id="registerNick">
+                    <span class="field-error">Proszę wypełnić to pole</span>
+                </div>
+                <div class="input-field">
+                    <input type="email" placeholder="Adres e-mail" id="registerEmail">
+                    <span class="field-error">Proszę wypełnić to pole</span>
+                </div>
+                <div class="input-field">
+                    <input type="password" placeholder="Hasło" id="registerPassword">
+                    <span class="field-error">Proszę wypełnić to pole</span>
+                </div>
+                <button type="submit" class="btn-submit">Stwórz darmowe konto</button>
+            </form>
+
+            <!-- Formularz Weryfikacji E-mail (Kod) -->
+            <form class="auth-form" id="verifyForm">
+                <div style="text-align: center; margin-bottom: 16px; color: var(--text-muted); font-size: 0.9rem;">
+                    Wysłaliśmy 6-cyfrowy kod weryfikacyjny na podany adres e-mail. Wpisz go poniżej:
+                </div>
+                <div class="input-field">
+                    <input type="text" placeholder="123456" id="verificationCode" maxlength="6" style="text-align: center; letter-spacing: 4px; font-weight: 700; font-size: 1.2rem;">
+                    <span class="field-error">Wpisz poprawny kod</span>
+                </div>
+                <button type="submit" class="btn-submit">Potwierdź kod</button>
+                <div style="text-align: center; margin-top: 12px;">
+                    <a href="#" class="link-btn" id="resendCodeBtn">Nie otrzymałeś kodu? Wyślij ponownie</a>
+                </div>
+            </form>
+
+            <!-- Formularz Resetu Hasła -->
+            <form class="auth-form" id="forgotForm">
+                <div class="input-field">
+                    <input type="email" placeholder="Podaj Twój e-mail" id="forgotEmail">
+                    <span class="field-error">Proszę wypełnić to pole</span>
+                </div>
+                <button type="submit" class="btn-submit">Wyślij link resetujący</button>
+            </form>
+
+            <div class="modal-footer">
+                <span id="footerText">Nie masz jeszcze konta?</span>
+                <a href="#" id="switchAuthBtn">Zarejestruj się</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Podpięcie skryptu -->
+    <script src="auth.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineShop - ItemShop Minecraft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Efekt świetlny w tle -->
+    <div class="ambient-glow"></div>
+
+    <!-- Pasek promocyjny -->
+    <div class="top-banner">
+        Promocja! <strong>25% rabatu</strong> na start własnego sklepu. <a href="#">Odbierz teraz &rarr;</a>
+    </div>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon"></div>
+            Craft<span>Shop</span>
+        </a>
+
+        <div class="nav-center">
+            <a href="#" class="nav-link active">Jak to działa</a>
+            <a href="#" class="nav-link">Szablony</a>
+            <a href="#" class="nav-link">Płatności</a>
             <a href="#" class="nav-link">Cennik</a>
             <a href="#" class="nav-link">Dokumentacja</a>
         </div>
