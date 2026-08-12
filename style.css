@@ -271,7 +271,7 @@ body {
 .products {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    gap: 20px;
 }
 
 .product {
@@ -280,7 +280,7 @@ body {
     border-radius: 18px;
     background: rgba(255,255,255,.025);
     border: 1px solid var(--border);
-    transition: .3s;
+    transition: all .3s ease;
     display: flex;
     flex-direction: column;
 }
@@ -361,7 +361,7 @@ body {
     border-color: transparent;
 }
 
-/* PORTFOLIO Z REALNYMI ZDJĘCIAMI */
+/* DOKŁADNIE 3 KOLUMNY W RZĘDZIE (3 OBOK SIEBIE, KOLEJNE W DÓŁ) */
 .portfolio {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -370,54 +370,70 @@ body {
 
 .portfolio-item {
     position: relative;
-    height: 240px;
-    border-radius: 18px;
+    height: 200px; /* Zmniejszona wysokość elementów */
+    border-radius: 16px;
     overflow: hidden;
     border: 1px solid var(--border);
     cursor: pointer;
-    background: #100b18;
+    background: #0e0a15;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .portfolio-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform .4s ease;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .portfolio-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(8, 6, 13, 0.75);
+    background: linear-gradient(to top, rgba(8, 6, 13, 0.9) 0%, rgba(8, 6, 13, 0.4) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity .3s ease;
+    backdrop-filter: blur(3px);
+    transition: opacity 0.35s ease;
 }
 
 .portfolio-overlay span {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: white;
     letter-spacing: 1px;
     text-align: center;
     padding: 0 15px;
+    transform: translateY(15px);
+    transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-6px);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15);
 }
 
 .portfolio-item:hover img {
-    transform: scale(1.08);
+    transform: scale(1.1);
 }
 
 .portfolio-item:hover .portfolio-overlay {
     opacity: 1;
 }
 
+.portfolio-item:hover .portfolio-overlay span {
+    transform: translateY(0);
+}
+
 /* LIGHTBOX */
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(5, 4, 8, 0.92);
+    backdrop-filter: blur(8px);
     display: none;
     align-items: center;
     justify-content: center;
@@ -431,18 +447,24 @@ body {
 
 .lightbox img {
     max-width: 90%;
-    max-height: 90vh;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    max-height: 85vh;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .lightbox-close {
     position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    color: white;
+    top: 25px;
+    right: 35px;
+    font-size: 45px;
+    color: var(--muted);
     cursor: pointer;
+    transition: color .2s;
+}
+
+.lightbox-close:hover {
+    color: white;
 }
 
 .pricing {
