@@ -106,17 +106,18 @@ function checkout() {
         `Uwagi: ${additionalNotes}\n\n` +
         `Wybrane usługi:\n${summary}\n\n` +
         `Szacowany koszt: od ${total} PLN\n\n` +
-        `Kliknij OK, aby wyslac zamówienie.`
+        `Kliknij OK, aby wysłac zamówienie.`
     );
 
     if (confirmed) {
         cart = [];
         updateCartUI();
         toggleCart();
-        window.location.href = "https://discord.com/"; 
+        
+        // Otwiera okno chatu bezpośrednio z Tobą na Discordzie (używając Twojego nicku xszymoxpro)
+        window.open("https://discord.com/users/xszymoxpro", "_blank"); 
     }
 }
-
 function openLightbox(imgSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
