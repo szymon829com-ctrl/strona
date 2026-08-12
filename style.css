@@ -361,11 +361,11 @@ body {
     border-color: transparent;
 }
 
-/* PRZEPROJEKTOWANA SEKCJA: DLACZEGO SX STUDIO (WYŚRODKOWANE, ŁADNE ODSTĘPY I CZYTELNY UKŁAD) */
+/* KAFELKI: DLACZEGO SX STUDIO (3 KOLUMNY OBOK SIEBIE) */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 25px;
     margin-top: 40px;
 }
 
@@ -374,11 +374,8 @@ body {
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border);
-    text-align: center;
+    text-align: left;
     transition: all .35s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .feature-box:hover {
