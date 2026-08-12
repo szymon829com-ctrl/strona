@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     const forgotForm = document.getElementById('forgotForm');
+    const verifyForm = document.getElementById('verifyForm'); // Formularz weryfikacji kodu
     
     // Elementy nagłówka i stopki
     const modalTitle = document.getElementById('modalTitle');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabRegisterBtn = document.getElementById('tabRegisterBtn');
     const socialGroup = document.getElementById('socialGroup');
     const orSeparator = document.getElementById('orSeparator');
+    const modalFooter = document.querySelector('.modal-footer');
 
     // Przyciski otwierające z poziomu strony
     const openLoginBtn = document.getElementById('openLoginBtn');
@@ -35,22 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTab = tab;
 
         // 1. Ukryj wszystkie formularze
-        loginForm.classList.remove('active');
-        registerForm.classList.remove('active');
-        forgotForm.classList.remove('active');
+        if (loginForm) loginForm.classList.remove('active');
+        if (registerForm) registerForm.classList.remove('active');
+        if (forgotForm) forgotForm.classList.remove('active');
+        if (verifyForm) verifyForm.classList.remove('active');
 
-        // 2. Odznacz aktywne zakładki u góry (jeśli istnieją w HTML)
+        // 2. Odznacz aktywne zakładki u góry
         if (tabLoginBtn) tabLoginBtn.classList.remove('active');
         if (tabRegisterBtn) tabRegisterBtn.classList.remove('active');
 
-        // 3. Przywróć widoczność zakładek i przycisków społecznościowych
+        // 3. Przywróć domyślną widoczność zakładek, stopki i przycisków społecznościowych
         if (authTabs) authTabs.style.display = 'grid';
         if (socialGroup) socialGroup.style.display = 'grid';
         if (orSeparator) orSeparator.style.display = 'block';
+        if (modalFooter) modalFooter.style.display = 'block';
 
         // 4. Ustaw odpowiedni stan
         if (tab === 'login') {
-            loginForm.classList.add('active');
+            if (loginForm) loginForm.classList.add('active');
             if (tabLoginBtn) tabLoginBtn.classList.add('active');
             modalTitle.innerHTML = 'Zaloguj się do <span>CraftShop</span>';
             modalSubtitle.textContent = 'Wpisz dane dostępowe do swojego konta';
@@ -58,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             switchAuthBtn.textContent = 'Zarejestruj się';
 
         } else if (tab === 'register') {
-            registerForm.classList.add('active');
+            if (registerForm) registerForm.classList.add('active');
             if (tabRegisterBtn) tabRegisterBtn.classList.add('active');
             modalTitle.innerHTML = 'Dołącz do <span>CraftShop</span>';
             modalSubtitle.textContent = 'Zarejestruj się i stwórz sklep w 2 minuty';
@@ -66,16 +70,25 @@ document.addEventListener('DOMContentLoaded', () => {
             switchAuthBtn.textContent = 'Zaloguj się';
 
         } else if (tab === 'forgot') {
-            forgotForm.classList.add('active');
+            if (forgotForm) forgotForm.classList.add('active');
             modalTitle.innerHTML = 'Resetowanie <span>Hasła</span>';
             modalSubtitle.textContent = 'Wprowadź e-mail powiązany z kontem';
             footerText.textContent = 'Pamiętasz hasło?';
             switchAuthBtn.textContent = 'Wróć do logowania';
 
-            // Ukrywamy Discord/Google oraz taby w trybie resetu hasła
+            // Ukrywamy Discord oraz taby w trybie resetu hasła
             if (authTabs) authTabs.style.display = 'none';
             if (socialGroup) socialGroup.style.display = 'none';
             if (orSeparator) orSeparator.style.display = 'none';
+        }
+        else if (tab === 'verify') {
+            if (verifyForm) verifyForm.classList.add('active');
+            modalTitle.innerHTML = 'Potwierdź <span>e-mail</span>';
+            modalSubtitle.textContent = 'Weryfikacja adresu e-mail';
+            if (authTabs) authTabs.style.display = 'none';
+            if (socialGroup) socialGroup.style.display = 'none';
+            if (orSeparator) orSeparator.style.display = 'none';
+            if (modalFooter) modalFooter.style.display = 'none';
         }
     }
 
@@ -95,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openRegisterNav) openRegisterNav.addEventListener('click', () => openModal('register'));
     if (openRegisterHero) openRegisterHero.addEventListener('click', () => openModal('register'));
 
-    // Klikanie zakładek górnych (jeśli istnieją w DOM)
+    // Klikanie zakładek górnych
     if (tabLoginBtn) tabLoginBtn.addEventListener('click', () => switchTab('login'));
     if (tabRegisterBtn) tabRegisterBtn.addEventListener('click', () => switchTab('register'));
 
@@ -128,4 +141,67 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     });
+
+    // ==========================================================================
+    // OBSŁUGA WYSYŁANIA FORMULARZY ORAZ ANIMOWANEGO WYSUWANIA BŁĘDÓW
+    // ==========================================================================
+    const allForms = document.querySelectorAll('.auth-form');
+
+    allForms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let formIsValid = true;
+            const inputs = form.querySelectorAll('input');
+
+            inputs.forEach(input => {
+                const fieldContainer = input.closest('.input-field');
+
+                if (!input.value.trim()) {
+                    if (fieldContainer) fieldContainer.classList.add('error');
+                    formIsValid = false;
+                } else {
+                    if (fieldContainer) fieldContainer.classList.remove('error');
+                }
+
+                input.oninput = () => {
+                    if (input.value.trim() && fieldContainer) {
+                        fieldContainer.classList.remove('error');
+                    }
+                };
+            });
+
+            if (formIsValid) {
+                if (form.id === 'registerForm') {
+                    // Przejście do ekranu wpisywania kodu po pomyślnej rejestracji
+                    switchTab('verify');
+                } 
+                else if (form.id === 'verifyForm') {
+                    const codeInput = document.getElementById('verificationCode');
+                    if (codeInput && codeInput.value.trim().length < 6) {
+                        const fieldContainer = codeInput.closest('.input-field');
+                        if (fieldContainer) fieldContainer.classList.add('error');
+                        return;
+                    }
+                    alert('Konto zostało pomyślnie zweryfikowane!');
+                    window.location.href = '/strona/dashboard.html';
+                }
+                else if (form.id === 'forgotForm') {
+                    alert('Link do resetu hasła został wysłany!');
+                    switchTab('login');
+                } else {
+                    window.location.href = '/strona/dashboard.html';
+                }
+            }
+        });
+    });
+
+    // Obsługa ponownego wysyłania kodu
+    const resendBtn = document.getElementById('resendCodeBtn');
+    if (resendBtn) {
+        resendBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Nowy kod weryfikacyjny został wysłany na adres e-mail.');
+        });
+    }
 });
