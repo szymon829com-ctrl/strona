@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("openRegisterBtnNav")
     ];
 
-    // Wszystkie przyciski z cennika (Free, Pro+, Pro)
-    const pricingButtons = document.querySelectorAll(".pricing-card .btn-pricing-outline, .pricing-card .btn-green-solid");
+    // Uniwersalny selektor – łapie każdy przycisk i link wewnątrz kart cennika
+    const pricingButtons = document.querySelectorAll(".pricing-card button, .pricing-card a");
 
     // Formularze i zakładki
     const loginForm = document.getElementById("loginForm");
@@ -43,70 +43,76 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funkcje pomocnicze do przełączania widoków w modalu
     function openModal(mode = 'login', planName = null) {
-        authModal.classList.add("active");
-        if (mode === 'register') {
-            switchToRegister(planName);
-        } else {
-            switchToLogin();
+        if (authModal) {
+            authModal.classList.add("active");
+            if (mode === 'register') {
+                switchToRegister(planName);
+            } else {
+                switchToLogin();
+            }
         }
     }
 
     function closeModal() {
-        authModal.classList.remove("active");
+        if (authModal) {
+            authModal.classList.remove("active");
+        }
     }
 
     function hideAllForms() {
-        loginForm.classList.remove("active");
-        registerForm.classList.remove("active");
-        verifyForm.classList.remove("active");
-        forgotForm.classList.remove("active");
+        if (loginForm) loginForm.classList.remove("active");
+        if (registerForm) registerForm.classList.remove("active");
+        if (verifyForm) verifyForm.classList.remove("active");
+        if (forgotForm) forgotForm.classList.remove("active");
     }
 
     function switchToLogin() {
         hideAllForms();
-        loginForm.classList.add("active");
-        tabLoginBtn.classList.add("active");
-        tabRegisterBtn.classList.remove("active");
-        authTabs.style.display = "grid";
-        socialGroup.style.display = "grid";
-        orSeparator.style.display = "block";
-        modalTitle.innerHTML = "Konto <span>CraftShop</span>";
-        modalSubtitle.textContent = "Wybierz metodę autoryzacji";
-        footerText.textContent = "Nie masz jeszcze konta?";
-        switchAuthBtn.textContent = "Zarejestruj się";
+        if (loginForm) loginForm.classList.add("active");
+        if (tabLoginBtn) tabLoginBtn.classList.add("active");
+        if (tabRegisterBtn) tabRegisterBtn.classList.remove("active");
+        if (authTabs) authTabs.style.display = "grid";
+        if (socialGroup) socialGroup.style.display = "grid";
+        if (orSeparator) orSeparator.style.display = "block";
+        if (modalTitle) modalTitle.innerHTML = "Konto <span>CraftShop</span>";
+        if (modalSubtitle) modalSubtitle.textContent = "Wybierz metodę autoryzacji";
+        if (footerText) footerText.textContent = "Nie masz jeszcze konta?";
+        if (switchAuthBtn) switchAuthBtn.textContent = "Zarejestruj się";
     }
 
     function switchToRegister(planName = null) {
         hideAllForms();
-        registerForm.classList.add("active");
-        tabRegisterBtn.classList.add("active");
-        tabLoginBtn.classList.remove("active");
-        authTabs.style.display = "grid";
-        socialGroup.style.display = "grid";
-        orSeparator.style.display = "block";
+        if (registerForm) registerForm.classList.add("active");
+        if (tabRegisterBtn) tabRegisterBtn.classList.add("active");
+        if (tabLoginBtn) tabLoginBtn.classList.remove("active");
+        if (authTabs) authTabs.style.display = "grid";
+        if (socialGroup) socialGroup.style.display = "grid";
+        if (orSeparator) orSeparator.style.display = "block";
         
-        if (planName) {
-            modalTitle.innerHTML = `Wybrano plan: <span>${planName}</span>`;
-            modalSubtitle.textContent = "Zarejestruj się, aby aktywować ten plan";
-        } else {
-            modalTitle.innerHTML = "Dołącz do <span>CraftShop</span>";
-            modalSubtitle.textContent = "Stwórz darmowe konto dla swojego serwera";
+        if (modalTitle && modalSubtitle) {
+            if (planName) {
+                modalTitle.innerHTML = `Wybrano plan: <span>${planName}</span>`;
+                modalSubtitle.textContent = "Zarejestruj się, aby aktywować ten plan";
+            } else {
+                modalTitle.innerHTML = "Dołącz do <span>CraftShop</span>";
+                modalSubtitle.textContent = "Stwórz darmowe konto dla swojego serwera";
+            }
         }
         
-        footerText.textContent = "Masz już konto?";
-        switchAuthBtn.textContent = "Zaloguj się";
+        if (footerText) footerText.textContent = "Masz już konto?";
+        if (switchAuthBtn) switchAuthBtn.textContent = "Zaloguj się";
     }
 
     function switchToForgot() {
         hideAllForms();
-        forgotForm.classList.add("active");
-        authTabs.style.display = "none";
-        socialGroup.style.display = "none";
-        orSeparator.style.display = "none";
-        modalTitle.innerHTML = "Resetowanie <span>hasła</span>";
-        modalSubtitle.textContent = "Wpisz e-mail powiązany z kontem";
-        footerText.textContent = "Pamiętasz hasło?";
-        switchAuthBtn.textContent = "Wróć do logowania";
+        if (forgotForm) forgotForm.classList.add("active");
+        if (authTabs) authTabs.style.display = "none";
+        if (socialGroup) socialGroup.style.display = "none";
+        if (orSeparator) orSeparator.style.display = "none";
+        if (modalTitle) modalTitle.innerHTML = "Resetowanie <span>hasła</span>";
+        if (modalSubtitle) modalSubtitle.textContent = "Wpisz e-mail powiązany z kontem";
+        if (footerText) footerText.textContent = "Pamiętasz hasło?";
+        if (switchAuthBtn) switchAuthBtn.textContent = "Wróć do logowania";
     }
 
     // --- Nasłuchiwacze zdarzeń ---
@@ -145,12 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // KLUCZOWY WARUNEK: Sprawdzenie stanu zalogowania
+            // Sprawdzenie stanu zalogowania
             if (isUserLoggedIn) {
-                // Jeśli zalogowany -> przekieruj do dashboardu z parametrem planu
                 window.location.href = `dashboard.html?plan=${encodeURIComponent(planName)}`;
             } else {
-                // Jeśli niezalogowany -> otwórz modal rejestracji z wybranym planem
                 openModal('register', planName);
             }
         });
@@ -160,11 +164,13 @@ document.addEventListener("DOMContentLoaded", () => {
         closeAuthBtn.addEventListener("click", closeModal);
     }
 
-    authModal.addEventListener("click", (e) => {
-        if (e.target === authModal) {
-            closeModal();
-        }
-    });
+    if (authModal) {
+        authModal.addEventListener("click", (e) => {
+            if (e.target === authModal) {
+                closeModal();
+            }
+        });
+    }
 
     if (tabLoginBtn) {
         tabLoginBtn.addEventListener("click", switchToLogin);
@@ -184,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (switchAuthBtn) {
         switchAuthBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            if (loginForm.classList.contains("active") || forgotForm.classList.contains("active")) {
+            if ((loginForm && loginForm.classList.contains("active")) || (forgotForm && forgotForm.classList.contains("active"))) {
                 switchToRegister();
             } else {
                 switchToLogin();
@@ -213,13 +219,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (isValid) {
                     if (form === registerForm) {
-                        // Po rejestracji przechodzimy do weryfikacji kodu
                         hideAllForms();
-                        verifyForm.classList.add("active");
-                        modalTitle.innerHTML = "Weryfikacja <span>e-mail</span>";
-                        modalSubtitle.textContent = "Wpisz kod wysłany na skrzynkę";
+                        if (verifyForm) verifyForm.classList.add("active");
+                        if (modalTitle) modalTitle.innerHTML = "Weryfikacja <span>e-mail</span>";
+                        if (modalSubtitle) modalSubtitle.textContent = "Wpisz kod wysłany na skrzynkę";
                     } else if (form === verifyForm || form === loginForm) {
-                        // Symulacja udanego logowania/weryfikacji -> zmiana stanu i przekierowanie do dashboardu
                         isUserLoggedIn = true;
                         alert("Zalogowano pomyślnie! Przenoszę do panelu...");
                         window.location.href = "dashboard.html";
