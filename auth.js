@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const authModal = document.getElementById("authModal");
     const closeAuthBtn = document.getElementById("closeAuthBtn");
     
-    // Przyciski otwierające modal
+    // Przyciski otwierające modal ogólnie
     const openLoginBtns = [
         document.getElementById("openLoginBtn"),
         document.getElementById("openLoginBtnCard"),
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("openRegisterBtnNav")
     ];
 
-    // Przyciski z cennika (wybieranie planu)
+    // Wszystkie przyciski z cennika (Free, Pro+, Pro)
     const pricingButtons = document.querySelectorAll(".pricing-card .btn-pricing-outline, .pricing-card .btn-green-solid");
 
     // Formularze i zakładki
@@ -36,11 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const switchAuthBtn = document.getElementById("switchAuthBtn");
     const showForgot = document.getElementById("showForgot");
 
+    // =========================================================================
+    // SYMULACJA SESJI UŻYTKOWNIKA (Zmień na true, aby przetestować stan zalogowany)
+    // =========================================================================
+    let isUserLoggedIn = false; 
+
     // Funkcje pomocnicze do przełączania widoków w modalu
-    function openModal(mode = 'login') {
+    function openModal(mode = 'login', planName = null) {
         authModal.classList.add("active");
         if (mode === 'register') {
-            switchToRegister();
+            switchToRegister(planName);
         } else {
             switchToLogin();
         }
@@ -71,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         switchAuthBtn.textContent = "Zarejestruj się";
     }
 
-    function switchToRegister() {
+    function switchToRegister(planName = null) {
         hideAllForms();
         registerForm.classList.add("active");
         tabRegisterBtn.classList.add("active");
@@ -79,8 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
         authTabs.style.display = "grid";
         socialGroup.style.display = "grid";
         orSeparator.style.display = "block";
-        modalTitle.innerHTML = "Dołącz do <span>CraftShop</span>";
-        modalSubtitle.textContent = "Stwórz darmowe konto dla swojego serwera";
+        
+        if (planName) {
+            modalTitle.innerHTML = `Wybrano plan: <span>${planName}</span>`;
+            modalSubtitle.textContent = "Zarejestruj się, aby aktywować ten plan";
+        } else {
+            modalTitle.innerHTML = "Dołącz do <span>CraftShop</span>";
+            modalSubtitle.textContent = "Stwórz darmowe konto dla swojego serwera";
+        }
+        
         footerText.textContent = "Masz już konto?";
         switchAuthBtn.textContent = "Zaloguj się";
     }
@@ -97,9 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
         switchAuthBtn.textContent = "Wróć do logowania";
     }
 
-    // --- Nasłuchiwacze zdarzeń (Event Listeners) ---
+    // --- Nasłuchiwacze zdarzeń ---
 
-    // Otwieranie logowania
     openLoginBtns.forEach(btn => {
         if (btn) {
             btn.addEventListener("click", (e) => {
@@ -109,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Otwieranie rejestracji
     openRegisterBtns.forEach(btn => {
         if (btn) {
             btn.addEventListener("click", (e) => {
@@ -119,15 +129,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Interakcja dla przycisków w cenniku (otwierają rejestrację/zakup)
+    // Inteligentna obsługa przycisków w cenniku
     pricingButtons.forEach(btn => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
-            openModal('register');
+            
+            // Pobieramy nazwę planu z karty
+            const card = btn.closest(".pricing-card");
+            let planName = "Wybrany Plan";
+            
+            if (card) {
+                const planTitleEl = card.querySelector(".plan-name");
+                if (planTitleEl) {
+                    planName = planTitleEl.textContent.trim();
+                }
+            }
+
+            // KLUCZOWY WARUNEK: Sprawdzenie stanu zalogowania
+            if (isUserLoggedIn) {
+                // Jeśli zalogowany -> przekieruj do dashboardu z parametrem planu
+                window.location.href = `dashboard.html?plan=${encodeURIComponent(planName)}`;
+            } else {
+                // Jeśli niezalogowany -> otwórz modal rejestracji z wybranym planem
+                openModal('register', planName);
+            }
         });
     });
 
-    // Zamykanie modalu
     if (closeAuthBtn) {
         closeAuthBtn.addEventListener("click", closeModal);
     }
@@ -138,13 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Przełączanie zakładek w modalu
     if (tabLoginBtn) {
         tabLoginBtn.addEventListener("click", switchToLogin);
     }
 
     if (tabRegisterBtn) {
-        tabRegisterBtn.addEventListener("click", switchToRegister);
+        tabRegisterBtn.addEventListener("click", () => switchToRegister());
     }
 
     if (showForgot) {
@@ -154,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Stopka w modalu (link przełączający stan)
     if (switchAuthBtn) {
         switchAuthBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -166,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Obsługa wysyłania formularzy (symulacja / zabezpieczenie przed pustymi polami)
+    // Walidacja formularzy i symulacja poprawnego logowania
     const forms = [loginForm, registerForm, verifyForm, forgotForm];
     forms.forEach(form => {
         if (form) {
@@ -186,14 +212,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (isValid) {
-                    // Tutaj możesz podpiąć faktyczny request fetch do swojego serwera Node.js
-                    alert("Akcja wykonana pomyślnie!");
                     if (form === registerForm) {
-                        // Przykładowe przełączenie na formularz weryfikacji kodu po rejestracji
+                        // Po rejestracji przechodzimy do weryfikacji kodu
                         hideAllForms();
                         verifyForm.classList.add("active");
                         modalTitle.innerHTML = "Weryfikacja <span>e-mail</span>";
                         modalSubtitle.textContent = "Wpisz kod wysłany na skrzynkę";
+                    } else if (form === verifyForm || form === loginForm) {
+                        // Symulacja udanego logowania/weryfikacji -> zmiana stanu i przekierowanie do dashboardu
+                        isUserLoggedIn = true;
+                        alert("Zalogowano pomyślnie! Przenoszę do panelu...");
+                        window.location.href = "dashboard.html";
                     }
                 }
             });
