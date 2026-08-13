@@ -7,6 +7,7 @@ const services = [
 ];
 
 let cart = JSON.parse(localStorage.getItem('sx_cart')) || [];
+let discountPercent = 0; // Przechowuje aktualny rabat
 
 function initStore() {
     const productsGrid = document.getElementById('productsGrid');
@@ -83,6 +84,21 @@ function saveCart() {
     localStorage.setItem('sx_cart', JSON.stringify(cart));
 }
 
+// Funkcja obsługująca aktywację kodu rabatowego
+function applyPromoCode() {
+    const promoInput = document.getElementById('promoCodeInput');
+    const code = promoInput ? promoInput.value.trim().toUpperCase() : '';
+
+    if (code === 'START') {
+        discountPercent = 15;
+        showToast('Aktywowano kod rabatowy: -15%!');
+    } else {
+        discountPercent = 0;
+        showToast('Niepoprawny kod rabatowy!', 'error');
+    }
+    updateCartUI();
+}
+
 function updateCartUI() {
     const cartCount = document.getElementById('cartCount');
     if (cartCount) {
@@ -115,7 +131,12 @@ function updateCartUI() {
     }).join('');
 
     if (cartTotal) {
-        cartTotal.textContent = `od ${total} zł`;
+        if (discountPercent > 0) {
+            let discountedTotal = (total * (1 - discountPercent / 100)).toFixed(2);
+            cartTotal.innerHTML = `<span style="text-decoration: line-through; font-size: 18px; color: var(--muted); margin-right: 10px;">od ${total} zł</span> od ${discountedTotal} zł`;
+        } else {
+            cartTotal.textContent = `od ${total} zł`;
+        }
     }
 }
 
@@ -136,15 +157,16 @@ async function submitOrder() {
         return;
     }
 
-    // Generowanie losowego numeru zamówienia, np. #482
     const orderNumber = '#' + Math.floor(100 + Math.random() * 900);
 
     let itemsList = cart.map(item => `• **${item.name}** — od ${item.price} PLN`).join('\n');
-    let totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+    let originalTotal = cart.reduce((sum, item) => sum + item.price, 0);
+    let finalTotal = discountPercent > 0 ? (originalTotal * (1 - discountPercent / 100)).toFixed(2) : originalTotal;
 
     const webhookURL = "https://discord.com/api/webhooks/1537399559641104444/rZprACMCthx81xEXCnUGJ4e6S15E5HFScIgzmjGp_DqU01V99Mej31GuAyeGxZ_sW8jw";
 
-    // Ładna wiadomość w formacie Embed
+    let priceText = discountPercent > 0 ? `**od ${finalTotal} PLN** (zastosowano rabat -${discountPercent}%)` : `**od ${originalTotal} PLN**`;
+
     const payload = {
         embeds: [{
             title: `🛒 Nowe zamówienie ${orderNumber}`,
@@ -162,7 +184,7 @@ async function submitOrder() {
                 },
                 {
                     name: "💰 Łączna kwota",
-                    value: `**od ${totalPrice} PLN**`,
+                    value: priceText,
                     inline: true
                 },
                 {
@@ -194,7 +216,6 @@ async function submitOrder() {
 
     showToast('Zamówienie wysłane pomyślnie!');
 
-    // Przekierowanie na stronę główną po 1.5 sekundy
     setTimeout(() => {
         window.location.href = 'index.html';
     }, 1500);
