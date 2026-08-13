@@ -6,7 +6,7 @@ const services = [
     { id: 5, name: "Grafika GUI / UI", price: 50, desc: "Interfejsy i elementy graficzne pod serwery MC.", icon: "⬡", featured: false }
 ];
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('sx_cart')) || [];
 
 function initStore() {
     const productsGrid = document.getElementById('productsGrid');
@@ -36,6 +36,8 @@ function initStore() {
             </div>
         `).join('');
     }
+
+    updateCartUI();
 }
 
 function showToast(message, type = 'success') {
@@ -48,20 +50,16 @@ function showToast(message, type = 'success') {
 
     container.appendChild(toast);
 
-    setTimeout(() => {
-        toast.classList.add('show');
-    }, 10);
-
+    setTimeout(() => { toast.classList.add('show'); }, 10);
     setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => {
-            toast.remove();
-        }, 350);
+        setTimeout(() => { toast.remove(); }, 350);
     }, 3000);
 }
 
+// Zamiast wysuwania boksa – przenosi do pliku cart.html
 function toggleCart() {
-    document.getElementById('cartOverlay').classList.toggle('active');
+    window.location.href = 'cart.html';
 }
 
 function addToCart(id) {
@@ -69,6 +67,7 @@ function addToCart(id) {
     if (!service) return;
 
     cart.push(service);
+    saveCart();
     updateCartUI();
     showToast(`Dodano do koszyka: ${service.name}`);
 }
@@ -76,20 +75,29 @@ function addToCart(id) {
 function removeFromCart(index) {
     const removedName = cart[index].name;
     cart.splice(index, 1);
+    saveCart();
     updateCartUI();
     showToast(`Usunięto z koszyka: ${removedName}`, 'error');
 }
 
+function saveCart() {
+    localStorage.setItem('sx_cart', JSON.stringify(cart));
+}
+
 function updateCartUI() {
     const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        cartCount.textContent = cart.length;
+    }
+
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
 
-    cartCount.textContent = cart.length;
+    if (!cartItems) return; // Jeśli jesteśmy na stronie głównej i nie ma kontenera koszyka
 
     if (cart.length === 0) {
-        cartItems.innerHTML = `<p class="empty">Koszyk jest pusty.</p>`;
-        cartTotal.textContent = `od 0 zł`;
+        cartItems.innerHTML = `<p class="empty" style="text-align:center; padding: 40px; color: var(--muted);">Twój koszyk jest pusty.</p>`;
+        if (cartTotal) cartTotal.textContent = `od 0 zł`;
         return;
     }
 
@@ -97,59 +105,44 @@ function updateCartUI() {
     cartItems.innerHTML = cart.map((item, index) => {
         total += item.price;
         return `
-            <div class="cart-item">
+            <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid var(--border);">
                 <div class="cart-item-info">
-                    <strong>${item.name}</strong>
-                    <span>od ${item.price} PLN</span>
+                    <strong style="color:white; margin-bottom:4px; display:block;">${item.name}</strong>
+                    <span style="color:var(--muted); font-size:13px;">od ${item.price} PLN</span>
                 </div>
                 <button class="remove" onclick="removeFromCart(${index})">Usuń</button>
             </div>
         `;
     }).join('');
 
-    cartTotal.textContent = `od ${total} zł`;
-}
-
-function checkout() {
-    if (cart.length === 0) {
-        showToast('Twój koszyk jest pusty!', 'error');
-        return;
-    }
-    const modal = document.getElementById('checkoutModal');
-    if (modal) {
-        modal.classList.add('active');
-    }
-}
-
-function closeCheckoutModal() {
-    const modal = document.getElementById('checkoutModal');
-    if (modal) {
-        modal.classList.remove('active');
+    if (cartTotal) {
+        cartTotal.textContent = `od ${total} zł`;
     }
 }
 
 function submitOrder() {
     const discordInput = document.getElementById('modalDiscord');
-    const notesInput = document.getElementById('modalNotes');
-    
     const discordUser = discordInput ? discordInput.value.trim() : '';
+
+    if (cart.length === 0) {
+        showToast('Twój koszyk jest pusty!', 'error');
+        return;
+    }
 
     if (!discordUser) {
         showToast('Podaj swój nick na Discordzie!', 'error');
         return;
     }
 
-    closeCheckoutModal();
     cart = [];
+    saveCart();
     updateCartUI();
-    toggleCart();
 
-    showToast('Zamówienie zostało przygotowane pomyślnie!');
-
-    if (discordInput) discordInput.value = '';
-    if (notesInput) notesInput.value = '';
-
-    window.open("https://discord.com/users/xszymoxpro", "_blank");
+    showToast('Zamówienie zostało przygotowane!');
+    
+    setTimeout(() => {
+        window.open("https://discord.com/users/xszymoxpro", "_blank");
+    }, 1000);
 }
 
 function openLightbox(imgSrc) {
