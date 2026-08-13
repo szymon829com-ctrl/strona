@@ -44,6 +44,15 @@
             <label for="modalDiscord">Twój nick na Discordzie</label>
             <input type="text" id="modalDiscord" placeholder="np. xszymoxpro">
         </div>
+
+        <!-- Sekcja kodu rabatowego -->
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="promoCodeInput">Kod rabatowy</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="promoCodeInput" placeholder="np. START" style="flex: 1; margin-bottom: 0;">
+                <button type="button" onclick="applyPromoCode()" class="btn secondary" style="padding: 12px 18px; font-size: 13px;">Użyj</button>
+            </div>
+        </div>
         
         <div class="form-group" style="margin-bottom: 20px;">
             <label for="modalNotes">Uwagi do zamówienia (opcjonalnie)</label>
