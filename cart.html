@@ -45,12 +45,17 @@
             <input type="text" id="modalDiscord" placeholder="np. xszymoxpro">
         </div>
         
-        <div class="form-group" style="margin-bottom: 25px;">
+        <div class="form-group" style="margin-bottom: 20px;">
             <label for="modalNotes">Uwagi do zamówienia (opcjonalnie)</label>
             <textarea id="modalNotes" rows="3" placeholder="Opisz krótko swoją wizję..."></textarea>
         </div>
 
-        <button onclick="submitOrder()" class="checkout" style="width: 100%; padding: 15px; font-size: 16px;">Potwierdź i przejdź do Discorda</button>
+        <!-- Informacja o dodaniu do znajomych -->
+        <p style="color: var(--muted); font-size: 13px; margin-bottom: 20px; text-align: center; line-height: 1.5;">
+            ℹ️ Po złożeniu zamówienia i opłaceniu go, w ciągu ok. <strong>24 godzin</strong> dodam Cię do znajomych na Discordzie w celu realizacji zlecenia.
+        </p>
+
+        <button onclick="submitOrder()" class="checkout" style="width: 100%; padding: 15px; font-size: 16px;">Zamawiam i płacę</button>
     </div>
 </main>
 
