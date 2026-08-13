@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SX Studio — Twój Koszyk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <a href="index.html" style="color: inherit; text-decoration: none;">SX<span>STUDIO</span></a>
+    </div>
+    <nav>
+        <a href="index.html#home">Start</a>
+        <a href="index.html#offer">Oferta</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="index.html#pricing">Cennik</a>
+    </nav>
+    <a href="index.html" class="cart-button" style="text-decoration: none;">Powrót do sklepu</a>
+</header>
+
+<main class="section" style="max-width: 800px; padding-top: 60px;">
+    <div class="section-header" style="margin-bottom: 30px;">
+        <span>PODSUMOWANIE</span>
+        <h2>Twój <strong>Koszyk</strong></h2>
+        <p>Sprawdź wybrane usługi i sfinalizuj zamówienie.</p>
+    </div>
+
+    <!-- Lista produktów w koszyku -->
+    <div id="cartItems" class="cart-items-page" style="margin-bottom: 30px;">
+        <p class="empty">Koszyk jest pusty.</p>
+    </div>
+
+    <!-- Sekcja podsumowania i formularza -->
+    <div class="cart-summary-box" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 20px; padding: 30px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+            <span style="font-size: 18px; color: var(--muted);">Łączna kwota:</span>
+            <strong id="cartTotal" style="font-size: 26px; color: white;">od 0 zł</strong>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="modalDiscord">Twój nick na Discordzie</label>
+            <input type="text" id="modalDiscord" placeholder="np. xszymoxpro">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 25px;">
+            <label for="modalNotes">Uwagi do zamówienia (opcjonalnie)</label>
+            <textarea id="modalNotes" rows="3" placeholder="Opisz krótko swoją wizję..."></textarea>
+        </div>
+
+        <button onclick="submitOrder()" class="checkout" style="width: 100%; padding: 15px; font-size: 16px;">Potwierdź i przejdź do Discorda</button>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-logo">SX<span>STUDIO</span></div>
+    <p>© 2026 SX Studio. Wszelkie prawa zastrzeżone.</p>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
