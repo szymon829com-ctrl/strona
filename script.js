@@ -103,6 +103,9 @@ function updateCartUI() {
     const cartCount = document.getElementById('cartCount');
     if (cartCount) {
         cartCount.textContent = cart.length;
+        // Animacja skoku licznika
+        cartCount.classList.add('cart-bump');
+        setTimeout(() => cartCount.classList.remove('cart-bump'), 350);
     }
 
     const cartItems = document.getElementById('cartItems');
@@ -120,7 +123,7 @@ function updateCartUI() {
     cartItems.innerHTML = cart.map((item, index) => {
         total += item.price;
         return `
-            <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid var(--border);">
+            <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; margin-bottom:12px; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid var(--border);">
                 <div class="cart-item-info">
                     <strong style="color:white; margin-bottom:4px; display:block;">${item.name}</strong>
                     <span style="color:var(--muted); font-size:13px;">od ${item.price} PLN</span>
