@@ -161,6 +161,41 @@ async function submitOrder() {
 
     showToast('Zamówienie wysłane pomyślnie!');
 
+    // Przekierowanie z powrotem na stronę główną po 1.5 sekundy
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1500);
+}
+    if (!discordUser) {
+        showToast('Podaj swój nick na Discordzie!', 'error');
+        return;
+    }
+
+    let itemsList = cart.map(item => `• ${item.name} (od ${item.price} PLN)`).join('\n');
+    let totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+
+    const webhookURL = "https://discord.com/api/webhooks/1537399559641104444/rZprACMCthx81xEXCnUGJ4e6S15E5HFScIgzmjGp_DqU01V99Mej31GuAyeGxZ_sW8jw";
+
+    const payload = {
+        content: `🚨 **NOWE ZAMÓWIENIE W SX STUDIO!** 🚨\n\n👤 **Klient (Discord):** \`${discordUser}\`\n🛒 **Wybrane usługi:**\n${itemsList}\n\n💰 **Szacowany kosz:** od ${totalPrice} PLN\n💬 **Uwagi:** ${notes}`
+    };
+
+    try {
+        await fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch (error) {
+        console.error("Błąd wysyłania webhooka:", error);
+    }
+
+    cart = [];
+    saveCart();
+    updateCartUI();
+
+    showToast('Zamówienie wysłane pomyślnie!');
+
     setTimeout(() => {
         window.open("https://discord.com/users/xszymoxpro", "_blank");
     }, 1200);
