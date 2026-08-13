@@ -1,9 +1,9 @@
 const services = [
-    { id: 1, name: "Embed Discord", price: 25, desc: "profesjonalne embedy dostosowane pod twój serwer.", icon: "▣", featured: false },
+    { id: 1, name: "Embed Discord", price: 25, desc: "Profesjonalne embedy dostosowane pod twój serwer.", icon: "▣", featured: false },
     { id: 2, name: "Banner pod tryb", price: 30, desc: "Profesjonalne banery pod tryb.", icon: "◆", featured: true },
     { id: 3, name: "Logo Serwerowe", price: 40, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
     { id: 4, name: "Miniaturka", price: 20, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
-    { id: 5, name: "Ikonki pod ItemShop", price: 20, desc: "ikonki pod itemshop.", icon: "⬢", featured: false },
+    { id: 5, name: "Ikonki pod ItemShop", price: 20, desc: "Ikonki pod itemshop.", icon: "⬢", featured: false },
 ];
 
 let cart = JSON.parse(localStorage.getItem('sx_cart')) || [];
@@ -57,7 +57,6 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// Zamiast wysuwania boksa – przenosi do pliku cart.html
 function toggleCart() {
     window.location.href = 'cart.html';
 }
@@ -93,7 +92,7 @@ function updateCartUI() {
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
 
-    if (!cartItems) return; // Jeśli jesteśmy na stronie głównej i nie ma kontenera koszyka
+    if (!cartItems) return;
 
     if (cart.length === 0) {
         cartItems.innerHTML = `<p class="empty" style="text-align:center; padding: 40px; color: var(--muted);">Twój koszyk jest pusty.</p>`;
@@ -120,9 +119,12 @@ function updateCartUI() {
     }
 }
 
-function submitOrder() {
+async function submitOrder() {
     const discordInput = document.getElementById('modalDiscord');
+    const notesInput = document.getElementById('modalNotes');
+    
     const discordUser = discordInput ? discordInput.value.trim() : '';
+    const notes = notesInput ? notesInput.value.trim() : 'Brak uwag';
 
     if (cart.length === 0) {
         showToast('Twój koszyk jest pusty!', 'error');
@@ -134,15 +136,34 @@ function submitOrder() {
         return;
     }
 
+    let itemsList = cart.map(item => `• ${item.name} (od ${item.price} PLN)`).join('\n');
+    let totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+
+    const webhookURL = "https://discord.com/api/webhooks/1537399559641104444/rZprACMCthx81xEXCnUGJ4e6S15E5HFScIgzmjGp_DqU01V99Mej31GuAyeGxZ_sW8jw";
+
+    const payload = {
+        content: `🚨 **NOWE ZAMÓWIENIE W SX STUDIO!** 🚨\n\n👤 **Klient (Discord):** \`${discordUser}\`\n🛒 **Wybrane usługi:**\n${itemsList}\n\n💰 **Szacowany kosz:** od ${totalPrice} PLN\n💬 **Uwagi:** ${notes}`
+    };
+
+    try {
+        await fetch(webhookURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch (error) {
+        console.error("Błąd wysyłania webhooka:", error);
+    }
+
     cart = [];
     saveCart();
     updateCartUI();
 
-    showToast('Zamówienie zostało przygotowane!');
-    
+    showToast('Zamówienie wysłane pomyślnie!');
+
     setTimeout(() => {
         window.open("https://discord.com/users/xszymoxpro", "_blank");
-    }, 1000);
+    }, 1200);
 }
 
 function openLightbox(imgSrc) {
