@@ -1,8 +1,9 @@
 const services = [
-    { id: 1, name: "Render Postaci", price: 25, desc: "Wysokiej jakości render postaci z Twoim skinem w wysokiej rozdzielczości.", icon: "▣", featured: false },
-    { id: 2, name: "Banner pod tryb mc/embed", price: 30, desc: "Profesjonalne baner na YouTube, Discord, Minecraft, Twitch.", icon: "◆", featured: true },
+    { id: 1, name: "Embed Discord", price: 25, desc: "profesjonalne embedy dostosowane pod twój serwer.", icon: "▣", featured: false },
+    { id: 2, name: "Banner pod tryb", price: 30, desc: "Profesjonalne banery pod tryb.", icon: "◆", featured: true },
     { id: 3, name: "Logo Serwerowe", price: 40, desc: "Unikalna identyfikacja wizualna Twojego projektu.", icon: "✦", featured: false },
     { id: 4, name: "Miniaturka", price: 20, desc: "Efektowna grafika przyciągająca widzów na YT.", icon: "⬢", featured: false },
+    { id: 5, name: "Ikonki pod ItemShop", price: 20, desc: "ikonki pod itemshop.", icon: "⬢", featured: false },
 ];
 
 let cart = JSON.parse(localStorage.getItem('sx_cart')) || [];
